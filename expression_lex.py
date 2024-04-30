@@ -20,7 +20,7 @@ literals = '+-*/%().'
 #numbers
 def t_INT(t):
     r'(?P<symbol>\+|-)?(\d+)(?=(?(symbol)\s|[\+\-\*\/]?\s))'
-    t.value = int(t.value)
+    #t.value = int(t.value)
     return t
 
 #need to change (ignore for now)
@@ -93,7 +93,10 @@ lexer = lex.lex()
 
 
 v = """
-1 ++ +1 1+ -- - . ."
+1
+2
+3
+4
 """
 
 #lexer.input(v)

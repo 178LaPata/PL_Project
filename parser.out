@@ -6,39 +6,66 @@ Unused terminals:
 
 Grammar
 
-Rule 0     S' -> fact
-Rule 1     fact -> INT
+Rule 0     S' -> fds
+Rule 1     fds -> fact
+Rule 2     fds -> fds fact
+Rule 3     fact -> INT
 
 Terminals, with rules where they appear
 
-INT                  : 1
+INT                  : 3
 WORD                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-fact                 : 0
+fact                 : 1 2
+fds                  : 2 0
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . fact
-    (1) fact -> . INT
+    (0) S' -> . fds
+    (1) fds -> . fact
+    (2) fds -> . fds fact
+    (3) fact -> . INT
 
-    INT             shift and go to state 2
+    INT             shift and go to state 3
 
-    fact                           shift and go to state 1
+    fds                            shift and go to state 1
+    fact                           shift and go to state 2
 
 state 1
 
-    (0) S' -> fact .
+    (0) S' -> fds .
+    (2) fds -> fds . fact
+    (3) fact -> . INT
 
+    INT             shift and go to state 3
 
+    fact                           shift and go to state 4
 
 state 2
 
-    (1) fact -> INT .
+    (1) fds -> fact .
 
-    $end            reduce using rule 1 (fact -> INT .)
+    INT             reduce using rule 1 (fds -> fact .)
+    $end            reduce using rule 1 (fds -> fact .)
+
+
+state 3
+
+    (3) fact -> INT .
+
+    INT             reduce using rule 3 (fact -> INT .)
+    $end            reduce using rule 3 (fact -> INT .)
+
+
+state 4
+
+    (2) fds -> fds fact .
+
+    INT             reduce using rule 2 (fds -> fds fact .)
+    $end            reduce using rule 2 (fds -> fds fact .)
 

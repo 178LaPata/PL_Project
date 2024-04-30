@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'INT WORDfact : INT'
+_lr_signature = 'INT WORDfds : factfds : fds factfact : INT'
     
-_lr_action_items = {'INT':([0,],[2,]),'$end':([1,2,],[0,-1,]),}
+_lr_action_items = {'INT':([0,1,2,3,4,],[3,3,-1,-3,-2,]),'$end':([1,2,3,4,],[0,-1,-3,-2,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'fact':([0,],[1,]),}
+_lr_goto_items = {'fds':([0,],[1,]),'fact':([0,1,],[2,4,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,6 +26,8 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> fact","S'",1,None,None,None),
-  ('fact -> INT','fact',1,'p_fact1','expression_gt.py',9),
+  ("S' -> fds","S'",1,None,None,None),
+  ('fds -> fact','fds',1,'p_mano','expression_gt.py',7),
+  ('fds -> fds fact','fds',2,'p_fds1','expression_gt.py',12),
+  ('fact -> INT','fact',1,'p_factInt','expression_gt.py',20),
 ]

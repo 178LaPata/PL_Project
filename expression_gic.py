@@ -11,6 +11,7 @@ from expression_lex import tokens
 def p_grammar(p):
     """
     exp : term
+        | exp term
         | exp OPAD term
     OPAD : '+' 
          | '-'
@@ -18,7 +19,7 @@ def p_grammar(p):
          | term OPMUL fact
     OPMUL : '*' 
           | '/'
-    fact : INT
+    fact : INT 
          | WORD
          | '-' exp
     
