@@ -2,6 +2,7 @@ import ply.lex as lex
 
 tokens = (
     'INT',
+    'OPR',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
@@ -15,7 +16,7 @@ tokens = (
     'WORD'
 )
 
-literals = '+-*/%().'
+literals = ['(',')','.']
 
 #numbers
 def t_INT(t):
@@ -81,6 +82,9 @@ def t_WORD(t):
     t.value = str(t.value)
     return t
 
+def t_OPR(t):
+    r'[\+\-\*\/\%]'
+    return t
 
 
 t_ignore = ' \n\t'
@@ -97,6 +101,9 @@ v = """
 2
 3
 4
+4+
+++
++-
 """
 
 #lexer.input(v)

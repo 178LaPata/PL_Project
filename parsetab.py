@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'INT WORDfds : factfds : fds factfact : INT'
+_lr_signature = 'INT OPR WORDexp : termexp : exp termterm : factterm : term factfact : INTfact : WORDfact : OPR'
     
-_lr_action_items = {'INT':([0,1,2,3,4,],[3,3,-1,-3,-2,]),'$end':([1,2,3,4,],[0,-1,-3,-2,]),}
+_lr_action_items = {'INT':([0,1,2,3,4,5,6,7,8,],[4,4,4,-3,-5,-6,-7,4,-4,]),'WORD':([0,1,2,3,4,5,6,7,8,],[5,5,5,-3,-5,-6,-7,5,-4,]),'OPR':([0,1,2,3,4,5,6,7,8,],[6,6,6,-3,-5,-6,-7,6,-4,]),'$end':([1,2,3,4,5,6,7,8,],[0,-1,-3,-5,-6,-7,-2,-4,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'fds':([0,],[1,]),'fact':([0,1,],[2,4,]),}
+_lr_goto_items = {'exp':([0,],[1,]),'term':([0,1,],[2,7,]),'fact':([0,1,2,7,],[3,3,8,8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,8 +26,12 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> fds","S'",1,None,None,None),
-  ('fds -> fact','fds',1,'p_mano','expression_gt.py',7),
-  ('fds -> fds fact','fds',2,'p_fds1','expression_gt.py',12),
-  ('fact -> INT','fact',1,'p_factInt','expression_gt.py',20),
+  ("S' -> exp","S'",1,None,None,None),
+  ('exp -> term','exp',1,'p_exp1','expression_gt.py',7),
+  ('exp -> exp term','exp',2,'p_exp2','expression_gt.py',11),
+  ('term -> fact','term',1,'p_term1','expression_gt.py',28),
+  ('term -> term fact','term',2,'p_term3','expression_gt.py',32),
+  ('fact -> INT','fact',1,'p_factInt','expression_gt.py',43),
+  ('fact -> WORD','fact',1,'p_factWord','expression_gt.py',48),
+  ('fact -> OPR','fact',1,'p_factOPR','expression_gt.py',54),
 ]

@@ -3,23 +3,65 @@ import sys
 import ply.yacc as yacc
 from expression_lex import tokens
 
-def p_mano(p):
-    "fds : fact"
-    print("fds1")
+def p_exp1(p):
+    "exp : term"
     p[0] = p[1]
 
-def p_fds1(p):
-    "fds : fds fact"
+def p_exp2(p):
+    "exp : exp term"
     if p[2] == "":
         p[0] = p[1]
     else:
-        p[0] = p[1] + ",\n" + p[2]
+        p[0] = p[1] + p[2]
+
+#
+#def p_exp3(p):
+#    """exp : exp OPAD term"""
+#    if p[2] == "":
+#        p[0] = p[1]
+#    else:
+#        p[0] = p[1] + ",\n" + p[2]
+#
+
+
+def p_term1(p):
+    "term : fact"
+    p[0] = p[1]
+
+def p_term3(p):
+    "term : term fact"
+    if p[2] == "":
+        p[0] = p[1]
+    else:
+        p[0] = p[1] + p[2]
+
+
+
 
     
 def p_factInt(p):
     "fact : INT"
-    print("fact1")
     p[0] = "pushi " + p[1] + "\n"
+
+
+def p_factWord(p):
+    "fact : WORD"
+    p[0] = p[1]
+
+
+
+def p_factOPR(p):
+    "fact : OPR"
+    if p[1] == '+':
+        p[0] = 'ADD\n'
+    elif p[1] == '-':
+        p[0] = 'SUB\n'
+    if p[1] == '*':
+        p[0] = 'MUL\n'
+    elif p[1] == '/':
+        p[0] = 'DIV\n'
+    elif p[1] == '%':
+        p[0] = 'MOD\n'
 
 
 

@@ -1,71 +1,166 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    WORD
-
 Grammar
 
-Rule 0     S' -> fds
-Rule 1     fds -> fact
-Rule 2     fds -> fds fact
-Rule 3     fact -> INT
+Rule 0     S' -> exp
+Rule 1     exp -> term
+Rule 2     exp -> exp term
+Rule 3     term -> fact
+Rule 4     term -> term fact
+Rule 5     fact -> INT
+Rule 6     fact -> WORD
+Rule 7     fact -> OPR
 
 Terminals, with rules where they appear
 
-INT                  : 3
-WORD                 : 
+INT                  : 5
+OPR                  : 7
+WORD                 : 6
 error                : 
 
 Nonterminals, with rules where they appear
 
-fact                 : 1 2
-fds                  : 2 0
+exp                  : 2 0
+fact                 : 3 4
+term                 : 1 2 4
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . fds
-    (1) fds -> . fact
-    (2) fds -> . fds fact
-    (3) fact -> . INT
+    (0) S' -> . exp
+    (1) exp -> . term
+    (2) exp -> . exp term
+    (3) term -> . fact
+    (4) term -> . term fact
+    (5) fact -> . INT
+    (6) fact -> . WORD
+    (7) fact -> . OPR
 
-    INT             shift and go to state 3
+    INT             shift and go to state 4
+    WORD            shift and go to state 5
+    OPR             shift and go to state 6
 
-    fds                            shift and go to state 1
-    fact                           shift and go to state 2
+    exp                            shift and go to state 1
+    term                           shift and go to state 2
+    fact                           shift and go to state 3
 
 state 1
 
-    (0) S' -> fds .
-    (2) fds -> fds . fact
-    (3) fact -> . INT
+    (0) S' -> exp .
+    (2) exp -> exp . term
+    (3) term -> . fact
+    (4) term -> . term fact
+    (5) fact -> . INT
+    (6) fact -> . WORD
+    (7) fact -> . OPR
 
-    INT             shift and go to state 3
+    INT             shift and go to state 4
+    WORD            shift and go to state 5
+    OPR             shift and go to state 6
 
-    fact                           shift and go to state 4
+    term                           shift and go to state 7
+    fact                           shift and go to state 3
 
 state 2
 
-    (1) fds -> fact .
+    (1) exp -> term .
+    (4) term -> term . fact
+    (5) fact -> . INT
+    (6) fact -> . WORD
+    (7) fact -> . OPR
 
-    INT             reduce using rule 1 (fds -> fact .)
-    $end            reduce using rule 1 (fds -> fact .)
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for WORD resolved as shift
+  ! shift/reduce conflict for OPR resolved as shift
+    $end            reduce using rule 1 (exp -> term .)
+    INT             shift and go to state 4
+    WORD            shift and go to state 5
+    OPR             shift and go to state 6
 
+  ! INT             [ reduce using rule 1 (exp -> term .) ]
+  ! WORD            [ reduce using rule 1 (exp -> term .) ]
+  ! OPR             [ reduce using rule 1 (exp -> term .) ]
+
+    fact                           shift and go to state 8
 
 state 3
 
-    (3) fact -> INT .
+    (3) term -> fact .
 
-    INT             reduce using rule 3 (fact -> INT .)
-    $end            reduce using rule 3 (fact -> INT .)
+    INT             reduce using rule 3 (term -> fact .)
+    WORD            reduce using rule 3 (term -> fact .)
+    OPR             reduce using rule 3 (term -> fact .)
+    $end            reduce using rule 3 (term -> fact .)
 
 
 state 4
 
-    (2) fds -> fds fact .
+    (5) fact -> INT .
 
-    INT             reduce using rule 2 (fds -> fds fact .)
-    $end            reduce using rule 2 (fds -> fds fact .)
+    INT             reduce using rule 5 (fact -> INT .)
+    WORD            reduce using rule 5 (fact -> INT .)
+    OPR             reduce using rule 5 (fact -> INT .)
+    $end            reduce using rule 5 (fact -> INT .)
 
+
+state 5
+
+    (6) fact -> WORD .
+
+    INT             reduce using rule 6 (fact -> WORD .)
+    WORD            reduce using rule 6 (fact -> WORD .)
+    OPR             reduce using rule 6 (fact -> WORD .)
+    $end            reduce using rule 6 (fact -> WORD .)
+
+
+state 6
+
+    (7) fact -> OPR .
+
+    INT             reduce using rule 7 (fact -> OPR .)
+    WORD            reduce using rule 7 (fact -> OPR .)
+    OPR             reduce using rule 7 (fact -> OPR .)
+    $end            reduce using rule 7 (fact -> OPR .)
+
+
+state 7
+
+    (2) exp -> exp term .
+    (4) term -> term . fact
+    (5) fact -> . INT
+    (6) fact -> . WORD
+    (7) fact -> . OPR
+
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for WORD resolved as shift
+  ! shift/reduce conflict for OPR resolved as shift
+    $end            reduce using rule 2 (exp -> exp term .)
+    INT             shift and go to state 4
+    WORD            shift and go to state 5
+    OPR             shift and go to state 6
+
+  ! INT             [ reduce using rule 2 (exp -> exp term .) ]
+  ! WORD            [ reduce using rule 2 (exp -> exp term .) ]
+  ! OPR             [ reduce using rule 2 (exp -> exp term .) ]
+
+    fact                           shift and go to state 8
+
+state 8
+
+    (4) term -> term fact .
+
+    INT             reduce using rule 4 (term -> term fact .)
+    WORD            reduce using rule 4 (term -> term fact .)
+    OPR             reduce using rule 4 (term -> term fact .)
+    $end            reduce using rule 4 (term -> term fact .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for INT in state 2 resolved as shift
+WARNING: shift/reduce conflict for WORD in state 2 resolved as shift
+WARNING: shift/reduce conflict for OPR in state 2 resolved as shift
+WARNING: shift/reduce conflict for INT in state 7 resolved as shift
+WARNING: shift/reduce conflict for WORD in state 7 resolved as shift
+WARNING: shift/reduce conflict for OPR in state 7 resolved as shift
