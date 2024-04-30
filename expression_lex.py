@@ -1,5 +1,4 @@
 import ply.lex as lex
-from ply import yacc
 
 tokens = (
     'NUMBER_INT',
@@ -12,54 +11,78 @@ tokens = (
     'LPAREN',
     'RPAREN',
     'BSLASH',
-    'CARACTER',
-    'DOT'
+    'DOT',
+    'WORD'
 )
 
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_BSLASH = r'\\'
-t_DOT = r'\.'
 
+
+#numbers
 def t_NUMBER_INT(t):
-    r'\d+'
+    r'([\+\-])?(\d+)(?=(?(1)[^\+\-\*\/\S]|[\+\-\*\/]?\s))'
     t.value = "PUSHI " + t.value
     return t
 
+#need to change (ignore for now)
 def t_NUMBER_FLOAT(t):
     r'\d+\.\d+'
     t.value = "PUSHF " + t.value
     return t
 
+
+#arithmetics
 def t_PLUS(t):
-    r'\+'
+    r'(\+)(?=\d*\s)'
     t.value = "ADD"
     return t
 
 def t_MINUS(t):
-    r'\-'
+    r'(\-)(?=\d*\s)'
     t.value = "SUB"
     return t
 
 def t_TIMES(t):
-    r'\*'
+    r'(\*)(?=\s)'
     t.value = "MUL"
     return t
 
 def t_DIVIDE(t):
-    r'\/'
+    r'(\/)(?=\s)'
     t.value = "DIV"
     return t
 
 def t_MOD(t):
-    r'\%'
+    r'(\%)(?=\s)'
     t.value = "MOD"
     return t
 
-def t_CARACTER(t):
-    r'\w+'
+
+#
+def t_LPAREN(t):
+    r'\((?=\s)'
+    return t
+
+def t_RPAREN(t):
+    r'\)'
+    return t
+
+
+def t_BSLASH(t):
+    r'\\(?=\s)'
+    return t
+
+def t_DOT(t):
+    r'\.(?=\s)'
+    return t
+
+
+#words
+def t_WORD(t):
+    r'\S+'
     t.value = str(t.value)
     return t
+
+
 
 t_ignore = ' \n\t'
 
@@ -69,8 +92,9 @@ def t_error(t):
 
 lexer = lex.lex()
 
+
 v = """
-123 456 + 789 - 123 * 456 / 789 % 123
+1+ 1- 2+ 2- 2* 2/
 """
 
 lexer.input(v)
