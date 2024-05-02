@@ -3,6 +3,7 @@ import ply.lex as lex
 tokens = (
     'INT',
     'OPR',
+    'NAME',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
@@ -16,20 +17,29 @@ tokens = (
     'WORD'
 )
 
-literals = ['(',')','.']
+literals = ['.',':',';']
+
+
+def t_COMMENT(t):
+    r'\(\s.*\)'
+    return ""
 
 #numbers
 def t_INT(t):
     r'(?P<symbol>\+|-)?(\d+)(?=(?(symbol)\s|[\+\-\*\/]?\s))'
-    #t.value = int(t.value)
     return t
+
+
+def t_NAME(t):
+    r'(?<=:\s)(\S+)(?=.*;\s)'
+    return t
+
 
 #need to change (ignore for now)
 #def t_NUMBER_FLOAT(t):
 #    r'\d+\.\d+'
 #    t.value = float(t.value)
 #    return t
-
 
 ##arithmetics
 #def t_PLUS(t):
@@ -76,14 +86,15 @@ def t_INT(t):
 #    return t
 #
 
+
+def t_OPR(t):
+    r'[\+\-\*\/\%]'
+    return t
+
 #words
 def t_WORD(t):
     r'([\S]{2,}|[a-zA-Z])\S*'
     t.value = str(t.value)
-    return t
-
-def t_OPR(t):
-    r'[\+\-\*\/\%]'
     return t
 
 
@@ -97,13 +108,7 @@ lexer = lex.lex()
 
 
 v = """
-1
-2
-3
-4
-4+
-++
-+-
+: AV : BA 3 ; 123 ;
 """
 
 #lexer.input(v)

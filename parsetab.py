@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'INT OPR WORDexp : termexp : exp termterm : factterm : term factfact : INTfact : WORDfact : OPR'
+_lr_signature = "INT NAME OPR WORDexp : term\n           | function\n    exp : exp termexp : exp functionterm : factfunction : ':' NAME exp ';'fact : INTfact : WORDfact : OPR"
     
-_lr_action_items = {'INT':([0,1,2,3,4,5,6,7,8,],[4,4,4,-3,-5,-6,-7,4,-4,]),'WORD':([0,1,2,3,4,5,6,7,8,],[5,5,5,-3,-5,-6,-7,5,-4,]),'OPR':([0,1,2,3,4,5,6,7,8,],[6,6,6,-3,-5,-6,-7,6,-4,]),'$end':([1,2,3,4,5,6,7,8,],[0,-1,-3,-5,-6,-7,-2,-4,]),}
+_lr_action_items = {':':([0,1,2,3,4,6,7,8,9,10,11,12,13,],[5,5,-1,-2,-5,-7,-8,-9,-3,-4,5,5,-6,]),'INT':([0,1,2,3,4,6,7,8,9,10,11,12,13,],[6,6,-1,-2,-5,-7,-8,-9,-3,-4,6,6,-6,]),'WORD':([0,1,2,3,4,6,7,8,9,10,11,12,13,],[7,7,-1,-2,-5,-7,-8,-9,-3,-4,7,7,-6,]),'OPR':([0,1,2,3,4,6,7,8,9,10,11,12,13,],[8,8,-1,-2,-5,-7,-8,-9,-3,-4,8,8,-6,]),'$end':([1,2,3,4,6,7,8,9,10,13,],[0,-1,-2,-5,-7,-8,-9,-3,-4,-6,]),';':([2,3,4,6,7,8,9,10,12,13,],[-1,-2,-5,-7,-8,-9,-3,-4,13,-6,]),'NAME':([5,],[11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'exp':([0,],[1,]),'term':([0,1,],[2,7,]),'fact':([0,1,2,7,],[3,3,8,8,]),}
+_lr_goto_items = {'exp':([0,11,],[1,12,]),'term':([0,1,11,12,],[2,9,2,9,]),'function':([0,1,11,12,],[3,10,3,10,]),'fact':([0,1,11,12,],[4,4,4,4,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,11 +27,13 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> exp","S'",1,None,None,None),
-  ('exp -> term','exp',1,'p_exp1','expression_gt.py',7),
-  ('exp -> exp term','exp',2,'p_exp2','expression_gt.py',11),
-  ('term -> fact','term',1,'p_term1','expression_gt.py',28),
-  ('term -> term fact','term',2,'p_term3','expression_gt.py',32),
-  ('fact -> INT','fact',1,'p_factInt','expression_gt.py',43),
-  ('fact -> WORD','fact',1,'p_factWord','expression_gt.py',48),
-  ('fact -> OPR','fact',1,'p_factOPR','expression_gt.py',54),
+  ('exp -> term','exp',1,'p_exp1','expression_gt.py',9),
+  ('exp -> function','exp',1,'p_exp1','expression_gt.py',10),
+  ('exp -> exp term','exp',2,'p_exp2','expression_gt.py',15),
+  ('exp -> exp function','exp',2,'p_exp3','expression_gt.py',22),
+  ('term -> fact','term',1,'p_term1','expression_gt.py',30),
+  ('function -> : NAME exp ;','function',4,'p_functions','expression_gt.py',35),
+  ('fact -> INT','fact',1,'p_factInt','expression_gt.py',41),
+  ('fact -> WORD','fact',1,'p_factWord','expression_gt.py',46),
+  ('fact -> OPR','fact',1,'p_factOPR','expression_gt.py',51),
 ]

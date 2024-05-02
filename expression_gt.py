@@ -3,8 +3,12 @@ import sys
 import ply.yacc as yacc
 from expression_lex import tokens
 
+
+
 def p_exp1(p):
-    "exp : term"
+    """exp : term
+           | function
+    """
     p[0] = p[1]
 
 def p_exp2(p):
@@ -14,31 +18,26 @@ def p_exp2(p):
     else:
         p[0] = p[1] + p[2]
 
-#
-#def p_exp3(p):
-#    """exp : exp OPAD term"""
-#    if p[2] == "":
-#        p[0] = p[1]
-#    else:
-#        p[0] = p[1] + ",\n" + p[2]
-#
-
-
-def p_term1(p):
-    "term : fact"
-    p[0] = p[1]
-
-def p_term3(p):
-    "term : term fact"
+def p_exp3(p):
+    "exp : exp function"
     if p[2] == "":
         p[0] = p[1]
     else:
         p[0] = p[1] + p[2]
 
 
+def p_term1(p):
+    "term : fact"
+    p[0] = p[1]
 
 
-    
+def p_functions(p):
+    "function : ':' NAME exp ';'"
+    parser.func.update({p[2]: p[3]})
+    p[0] = ""
+
+ 
+
 def p_factInt(p):
     "fact : INT"
     p[0] = "pushi " + p[1] + "\n"
@@ -47,7 +46,6 @@ def p_factInt(p):
 def p_factWord(p):
     "fact : WORD"
     p[0] = p[1]
-
 
 
 def p_factOPR(p):
@@ -66,7 +64,6 @@ def p_factOPR(p):
 
 
 
-
 def p_error(p):
     print("Syntax error in input!",p)
     parser.success=False
@@ -76,7 +73,13 @@ def p_error(p):
 
 parser = yacc.yacc()
 parser.success = True
+
+
+
+parser.func = {}
+parser.func_count = 0
 parser.id_table = { }
+parser.id_table.update()
 parser.id_count = 0
 
 source = ""
@@ -86,5 +89,10 @@ codigo = parser.parse(source)
 if parser.success:
     print('Parsing completed!')
     print(codigo)
+    for key, value in parser.func.items():
+        print(f"{key}:")
+        # Replace "\n" with "\n\t"
+        modified_value = value.replace("\n", "\n\t")
+        print("\t"+modified_value)
 else:
     print('Parsing failed!')
