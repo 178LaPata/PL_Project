@@ -12,6 +12,12 @@ tokens = (
     'CR',
     'SPACE',
     'SPACES',
+    'SWAP',
+    'KEY',
+    'IF',
+    'ELSE',
+    'THEN',
+    'DEPTH',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
@@ -34,6 +40,11 @@ def t_COMMENT(t):
     t.value = re.match(r'\(\s(.*)\)', t.value).group(1)
     return t
 
+def t_CHAR(t):
+    r'(?i)\bCHAR\b\s+\S+'
+    t.value = re.match(r'(?i)\bCHAR\b\s+(\S+)', t.value).group(1)
+    return t
+
 #numbers
 def t_INT(t):
     r'(?P<sign>\+|-)?(\d+)(?=(?(sign)\s|[\+\-\*\/]?\s))'
@@ -54,13 +65,11 @@ def t_EMIT(t):
     r'(?i)\bEMIT\b'
     return t
 
-def t_CHAR(t):
-    r'(?i)\bCHAR\b'
-    return t
 
 def t_DUP(t):
     r'(?i)\bDUP\b'
     return t
+
 
 def t_CR(t):
     r'(?i)\bCR\b'
@@ -74,60 +83,44 @@ def t_SPACES(t):
     r'(?i)\bSPACES\b'
     return t
 
-#need to change (ignore for now)
-#def t_NUMBER_FLOAT(t):
-#    r'\d+\.\d+'
-#    t.value = float(t.value)
-#    return t
+def t_SWAP(t):
+    r'(?i)\bSWAP\b'
+    return t
 
-##arithmetics
-#def t_PLUS(t):
-#    r'(\+)(?=\d*\s)'
-#    t.value = "ADD"
-#    return t
-#
-#def t_MINUS(t):
-#    r'(\-)(?=\d*\s)'
-#    t.value = "SUB"
-#    return t
-#
-#def t_TIMES(t):
-#    r'(\*)(?=\s)'
-#    t.value = "MUL"
-#    return t
-#
-#def t_DIVIDE(t):
-#    r'(\/)(?=\s)'
-#    t.value = "DIV"
-#    return t
-#
-#def t_MOD(t):
-#    r'(\%)(?=\s)'
-#    t.value = "MOD"
-#    return t
-#
-#
-#def t_LPAREN(t):
-#    r'\((?=\s)'
-#    return t
-#
-#def t_RPAREN(t):
-#    r'\)'
-#    return t
-#
-#
-#def t_BSLASH(t):
-#    r'\\(?=\s)'
-#    return t
-#
-#def t_DOT(t):
-#    r'\.(?=\s)'
-#    return t
-#
+def t_KEY(t):
+    r'(?i)\bKEY\b'
+    return t
+
+def t_IF(t):
+    r'(?i)\bIF\b'
+    return t
+
+def t_ELSE(t):
+    r'(?i)\bELSE\b'
+    return t
+
+def t_THEN(t):
+    r'(?i)\bTHEN\b'
+    return t
+
+def t_DEPTH(t):
+    r'(?i)\bDEPTH\b'
+    return t
+
+def t_DROP(t):
+    r'(?i)\bDROP\b'
+    return t
+
+
+
+
+
+
+
 
 
 def t_OPR(t):
-    r'[\+\-\*\/\%]'
+    r'(\+|\-|\*|\/|\%|<=|>=|<|>)'
     return t
 
 #words
@@ -147,7 +140,7 @@ lexer = lex.lex()
 
 
 v = """
-( fds )
+CHAR fds
 """
 
 lexer.input(v)
