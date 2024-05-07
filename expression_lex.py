@@ -1,9 +1,17 @@
 import ply.lex as lex
+import re
 
 tokens = (
     'INT',
     'OPR',
     'NAME',
+    'DOTQUOTE',
+    'EMIT',
+    'CHAR',
+    'DUP',
+    'CR',
+    'SPACE',
+    'SPACES',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
@@ -14,6 +22,7 @@ tokens = (
     #'RPAREN',
     #'BSLASH',
     #'DOT',
+    'COMMENT',
     'WORD'
 )
 
@@ -22,11 +31,12 @@ literals = ['.',':',';']
 
 def t_COMMENT(t):
     r'\(\s.*\)'
-    return ""
+    t.value = re.match(r'\(\s(.*)\)', t.value).group(1)
+    return t
 
 #numbers
 def t_INT(t):
-    r'(?P<symbol>\+|-)?(\d+)(?=(?(symbol)\s|[\+\-\*\/]?\s))'
+    r'(?P<sign>\+|-)?(\d+)(?=(?(sign)\s|[\+\-\*\/]?\s))'
     return t
 
 
@@ -34,6 +44,35 @@ def t_NAME(t):
     r'(?<=:\s)(\S+)(?=.*;\s)'
     return t
 
+
+def t_DOTQUOTE(t):
+    r'\."\s[\S\s]*?"'
+    t.value = re.match(r'(\."\s)([\S\s]*?)(")', t.value).group(2)
+    return t
+
+def t_EMIT(t):
+    r'(?i)\bEMIT\b'
+    return t
+
+def t_CHAR(t):
+    r'(?i)\bCHAR\b'
+    return t
+
+def t_DUP(t):
+    r'(?i)\bDUP\b'
+    return t
+
+def t_CR(t):
+    r'(?i)\bCR\b'
+    return t
+
+def t_SPACE(t):
+    r'(?i)\bSPACE\b'
+    return t
+
+def t_SPACES(t):
+    r'(?i)\bSPACES\b'
+    return t
 
 #need to change (ignore for now)
 #def t_NUMBER_FLOAT(t):
@@ -108,9 +147,9 @@ lexer = lex.lex()
 
 
 v = """
-: AV : BA 3 ; 123 ;
+( fds )
 """
 
-#lexer.input(v)
-#for tok in lexer:
-#    print(tok)
+lexer.input(v)
+for tok in lexer:
+    print(tok)

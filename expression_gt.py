@@ -29,23 +29,42 @@ def p_exp3(p):
 def p_term1(p):
     "term : fact"
     p[0] = p[1]
+    parser.word_count += 1
 
 
-def p_functions(p):
+def p_functions1(p):
+    "function : ':' NAME ';'"
+    if p[2] in parser.func:
+        print(f"Word {parser.word_count}: Duplicate name")
+        parser.success = False
+    else:
+        parser.func.update({p[2]: "\n"})
+        parser.word_count += 2
+        p[0] = ""
+
+def p_functions2(p):
     "function : ':' NAME exp ';'"
-    parser.func.update({p[2]: p[3]})
-    p[0] = ""
+    if p[2] in parser.func:
+        print(f"Word {parser.word_count}: Duplicate name")
+        parser.success = False
+    else:
+        parser.func.update({p[2]: p[3]})
+        parser.word_count += 2
+        p[0] = ""
 
- 
+
 
 def p_factInt(p):
     "fact : INT"
-    p[0] = "pushi " + p[1] + "\n"
+    p[0] = "PUSHI " + p[1] + "\n"
 
 
 def p_factWord(p):
     "fact : WORD"
     p[0] = p[1]
+    if p[1] not in parser.func:
+        print(f"Word {parser.word_count}: Undefined name")
+        parser.success = False
 
 
 def p_factOPR(p):
@@ -61,6 +80,44 @@ def p_factOPR(p):
     elif p[1] == '%':
         p[0] = 'MOD\n'
 
+def p_factComment(p):
+    "fact : COMMENT"
+    p[0] = "    // " + p[1]
+
+
+def p_factDOT(p):
+    "fact : '.'"
+    p[0] = "WRITEI\n"
+
+def p_factDOTQUOTE(p):
+    "fact : DOTQUOTE"
+    p[0] = 'PUSHS "' + p[1] + '"\nWRITES\n'
+
+def p_factEMIT(p):
+    "fact : EMIT"
+    p[0] = "WRITECHR\n"
+
+def p_factCHAR(p):
+    "fact : CHAR"
+    p[0] = "CHRCODE\n"
+
+
+def p_factDUP(p):
+    "fact : DUP"
+    p[0] = "DUP 1\n"
+
+def p_factCR(p):
+    "fact : CR"
+    p[0] = "WRITELN\n"
+
+def p_factSPACE(p):
+    "fact : SPACE"
+    p[0] = 'PUSHS " "'
+    
+
+def p_factSPACES(p):
+    "fact : SPACES"
+    p[0] = 'PUSHS " "'
 
 
 
@@ -77,10 +134,7 @@ parser.success = True
 
 
 parser.func = {}
-parser.func_count = 0
-parser.id_table = { }
-parser.id_table.update()
-parser.id_count = 0
+parser.word_count = 0
 
 source = ""
 for linha in sys.stdin:
