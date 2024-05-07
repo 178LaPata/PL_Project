@@ -30,6 +30,8 @@ Rule 24    fact -> SPACE
 Rule 25    fact -> SPACES
 Rule 26    fact -> SWAP
 Rule 27    fact -> KEY
+Rule 28    fact -> DEPTH
+Rule 29    fact -> DROP
 
 Terminals, with rules where they appear
 
@@ -39,7 +41,9 @@ Terminals, with rules where they appear
 CHAR                 : 21
 COMMENT              : 17
 CR                   : 23
+DEPTH                : 28
 DOTQUOTE             : 19
+DROP                 : 29
 DUP                  : 22
 ELSE                 : 10 11 12 13
 EMIT                 : 20
@@ -95,6 +99,8 @@ state 0
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
     :               shift and go to state 6
     IF              shift and go to state 7
@@ -112,6 +118,8 @@ state 0
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
     exp                            shift and go to state 1
     term                           shift and go to state 2
@@ -146,6 +154,8 @@ state 1
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
     :               shift and go to state 6
     IF              shift and go to state 7
@@ -163,10 +173,12 @@ state 1
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    term                           shift and go to state 22
-    function                       shift and go to state 23
-    conditional                    shift and go to state 24
+    term                           shift and go to state 24
+    function                       shift and go to state 25
+    conditional                    shift and go to state 26
     fact                           shift and go to state 5
 
 state 2
@@ -189,6 +201,8 @@ state 2
     SPACES          reduce using rule 1 (exp -> term .)
     SWAP            reduce using rule 1 (exp -> term .)
     KEY             reduce using rule 1 (exp -> term .)
+    DEPTH           reduce using rule 1 (exp -> term .)
+    DROP            reduce using rule 1 (exp -> term .)
     $end            reduce using rule 1 (exp -> term .)
     ELSE            reduce using rule 1 (exp -> term .)
     ;               reduce using rule 1 (exp -> term .)
@@ -215,6 +229,8 @@ state 3
     SPACES          reduce using rule 2 (exp -> function .)
     SWAP            reduce using rule 2 (exp -> function .)
     KEY             reduce using rule 2 (exp -> function .)
+    DEPTH           reduce using rule 2 (exp -> function .)
+    DROP            reduce using rule 2 (exp -> function .)
     $end            reduce using rule 2 (exp -> function .)
     ELSE            reduce using rule 2 (exp -> function .)
     ;               reduce using rule 2 (exp -> function .)
@@ -241,6 +257,8 @@ state 4
     SPACES          reduce using rule 3 (exp -> conditional .)
     SWAP            reduce using rule 3 (exp -> conditional .)
     KEY             reduce using rule 3 (exp -> conditional .)
+    DEPTH           reduce using rule 3 (exp -> conditional .)
+    DROP            reduce using rule 3 (exp -> conditional .)
     $end            reduce using rule 3 (exp -> conditional .)
     ELSE            reduce using rule 3 (exp -> conditional .)
     ;               reduce using rule 3 (exp -> conditional .)
@@ -267,6 +285,8 @@ state 5
     SPACES          reduce using rule 7 (term -> fact .)
     SWAP            reduce using rule 7 (term -> fact .)
     KEY             reduce using rule 7 (term -> fact .)
+    DEPTH           reduce using rule 7 (term -> fact .)
+    DROP            reduce using rule 7 (term -> fact .)
     $end            reduce using rule 7 (term -> fact .)
     ELSE            reduce using rule 7 (term -> fact .)
     ;               reduce using rule 7 (term -> fact .)
@@ -278,7 +298,7 @@ state 6
     (8) function -> : . NAME ;
     (9) function -> : . NAME exp ;
 
-    NAME            shift and go to state 25
+    NAME            shift and go to state 27
 
 
 state 7
@@ -314,8 +334,10 @@ state 7
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    ELSE            shift and go to state 26
+    ELSE            shift and go to state 28
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -332,8 +354,10 @@ state 7
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    exp                            shift and go to state 27
+    exp                            shift and go to state 29
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
@@ -359,6 +383,8 @@ state 8
     SPACES          reduce using rule 14 (fact -> OPR .)
     SWAP            reduce using rule 14 (fact -> OPR .)
     KEY             reduce using rule 14 (fact -> OPR .)
+    DEPTH           reduce using rule 14 (fact -> OPR .)
+    DROP            reduce using rule 14 (fact -> OPR .)
     $end            reduce using rule 14 (fact -> OPR .)
     ELSE            reduce using rule 14 (fact -> OPR .)
     ;               reduce using rule 14 (fact -> OPR .)
@@ -385,6 +411,8 @@ state 9
     SPACES          reduce using rule 15 (fact -> INT .)
     SWAP            reduce using rule 15 (fact -> INT .)
     KEY             reduce using rule 15 (fact -> INT .)
+    DEPTH           reduce using rule 15 (fact -> INT .)
+    DROP            reduce using rule 15 (fact -> INT .)
     $end            reduce using rule 15 (fact -> INT .)
     ELSE            reduce using rule 15 (fact -> INT .)
     ;               reduce using rule 15 (fact -> INT .)
@@ -411,6 +439,8 @@ state 10
     SPACES          reduce using rule 16 (fact -> WORD .)
     SWAP            reduce using rule 16 (fact -> WORD .)
     KEY             reduce using rule 16 (fact -> WORD .)
+    DEPTH           reduce using rule 16 (fact -> WORD .)
+    DROP            reduce using rule 16 (fact -> WORD .)
     $end            reduce using rule 16 (fact -> WORD .)
     ELSE            reduce using rule 16 (fact -> WORD .)
     ;               reduce using rule 16 (fact -> WORD .)
@@ -437,6 +467,8 @@ state 11
     SPACES          reduce using rule 17 (fact -> COMMENT .)
     SWAP            reduce using rule 17 (fact -> COMMENT .)
     KEY             reduce using rule 17 (fact -> COMMENT .)
+    DEPTH           reduce using rule 17 (fact -> COMMENT .)
+    DROP            reduce using rule 17 (fact -> COMMENT .)
     $end            reduce using rule 17 (fact -> COMMENT .)
     ELSE            reduce using rule 17 (fact -> COMMENT .)
     ;               reduce using rule 17 (fact -> COMMENT .)
@@ -463,6 +495,8 @@ state 12
     SPACES          reduce using rule 18 (fact -> . .)
     SWAP            reduce using rule 18 (fact -> . .)
     KEY             reduce using rule 18 (fact -> . .)
+    DEPTH           reduce using rule 18 (fact -> . .)
+    DROP            reduce using rule 18 (fact -> . .)
     $end            reduce using rule 18 (fact -> . .)
     ELSE            reduce using rule 18 (fact -> . .)
     ;               reduce using rule 18 (fact -> . .)
@@ -489,6 +523,8 @@ state 13
     SPACES          reduce using rule 19 (fact -> DOTQUOTE .)
     SWAP            reduce using rule 19 (fact -> DOTQUOTE .)
     KEY             reduce using rule 19 (fact -> DOTQUOTE .)
+    DEPTH           reduce using rule 19 (fact -> DOTQUOTE .)
+    DROP            reduce using rule 19 (fact -> DOTQUOTE .)
     $end            reduce using rule 19 (fact -> DOTQUOTE .)
     ELSE            reduce using rule 19 (fact -> DOTQUOTE .)
     ;               reduce using rule 19 (fact -> DOTQUOTE .)
@@ -515,6 +551,8 @@ state 14
     SPACES          reduce using rule 20 (fact -> EMIT .)
     SWAP            reduce using rule 20 (fact -> EMIT .)
     KEY             reduce using rule 20 (fact -> EMIT .)
+    DEPTH           reduce using rule 20 (fact -> EMIT .)
+    DROP            reduce using rule 20 (fact -> EMIT .)
     $end            reduce using rule 20 (fact -> EMIT .)
     ELSE            reduce using rule 20 (fact -> EMIT .)
     ;               reduce using rule 20 (fact -> EMIT .)
@@ -541,6 +579,8 @@ state 15
     SPACES          reduce using rule 21 (fact -> CHAR .)
     SWAP            reduce using rule 21 (fact -> CHAR .)
     KEY             reduce using rule 21 (fact -> CHAR .)
+    DEPTH           reduce using rule 21 (fact -> CHAR .)
+    DROP            reduce using rule 21 (fact -> CHAR .)
     $end            reduce using rule 21 (fact -> CHAR .)
     ELSE            reduce using rule 21 (fact -> CHAR .)
     ;               reduce using rule 21 (fact -> CHAR .)
@@ -567,6 +607,8 @@ state 16
     SPACES          reduce using rule 22 (fact -> DUP .)
     SWAP            reduce using rule 22 (fact -> DUP .)
     KEY             reduce using rule 22 (fact -> DUP .)
+    DEPTH           reduce using rule 22 (fact -> DUP .)
+    DROP            reduce using rule 22 (fact -> DUP .)
     $end            reduce using rule 22 (fact -> DUP .)
     ELSE            reduce using rule 22 (fact -> DUP .)
     ;               reduce using rule 22 (fact -> DUP .)
@@ -593,6 +635,8 @@ state 17
     SPACES          reduce using rule 23 (fact -> CR .)
     SWAP            reduce using rule 23 (fact -> CR .)
     KEY             reduce using rule 23 (fact -> CR .)
+    DEPTH           reduce using rule 23 (fact -> CR .)
+    DROP            reduce using rule 23 (fact -> CR .)
     $end            reduce using rule 23 (fact -> CR .)
     ELSE            reduce using rule 23 (fact -> CR .)
     ;               reduce using rule 23 (fact -> CR .)
@@ -619,6 +663,8 @@ state 18
     SPACES          reduce using rule 24 (fact -> SPACE .)
     SWAP            reduce using rule 24 (fact -> SPACE .)
     KEY             reduce using rule 24 (fact -> SPACE .)
+    DEPTH           reduce using rule 24 (fact -> SPACE .)
+    DROP            reduce using rule 24 (fact -> SPACE .)
     $end            reduce using rule 24 (fact -> SPACE .)
     ELSE            reduce using rule 24 (fact -> SPACE .)
     ;               reduce using rule 24 (fact -> SPACE .)
@@ -645,6 +691,8 @@ state 19
     SPACES          reduce using rule 25 (fact -> SPACES .)
     SWAP            reduce using rule 25 (fact -> SPACES .)
     KEY             reduce using rule 25 (fact -> SPACES .)
+    DEPTH           reduce using rule 25 (fact -> SPACES .)
+    DROP            reduce using rule 25 (fact -> SPACES .)
     $end            reduce using rule 25 (fact -> SPACES .)
     ELSE            reduce using rule 25 (fact -> SPACES .)
     ;               reduce using rule 25 (fact -> SPACES .)
@@ -671,6 +719,8 @@ state 20
     SPACES          reduce using rule 26 (fact -> SWAP .)
     SWAP            reduce using rule 26 (fact -> SWAP .)
     KEY             reduce using rule 26 (fact -> SWAP .)
+    DEPTH           reduce using rule 26 (fact -> SWAP .)
+    DROP            reduce using rule 26 (fact -> SWAP .)
     $end            reduce using rule 26 (fact -> SWAP .)
     ELSE            reduce using rule 26 (fact -> SWAP .)
     ;               reduce using rule 26 (fact -> SWAP .)
@@ -697,6 +747,8 @@ state 21
     SPACES          reduce using rule 27 (fact -> KEY .)
     SWAP            reduce using rule 27 (fact -> KEY .)
     KEY             reduce using rule 27 (fact -> KEY .)
+    DEPTH           reduce using rule 27 (fact -> KEY .)
+    DROP            reduce using rule 27 (fact -> KEY .)
     $end            reduce using rule 27 (fact -> KEY .)
     ELSE            reduce using rule 27 (fact -> KEY .)
     ;               reduce using rule 27 (fact -> KEY .)
@@ -704,6 +756,62 @@ state 21
 
 
 state 22
+
+    (28) fact -> DEPTH .
+
+    :               reduce using rule 28 (fact -> DEPTH .)
+    IF              reduce using rule 28 (fact -> DEPTH .)
+    OPR             reduce using rule 28 (fact -> DEPTH .)
+    INT             reduce using rule 28 (fact -> DEPTH .)
+    WORD            reduce using rule 28 (fact -> DEPTH .)
+    COMMENT         reduce using rule 28 (fact -> DEPTH .)
+    .               reduce using rule 28 (fact -> DEPTH .)
+    DOTQUOTE        reduce using rule 28 (fact -> DEPTH .)
+    EMIT            reduce using rule 28 (fact -> DEPTH .)
+    CHAR            reduce using rule 28 (fact -> DEPTH .)
+    DUP             reduce using rule 28 (fact -> DEPTH .)
+    CR              reduce using rule 28 (fact -> DEPTH .)
+    SPACE           reduce using rule 28 (fact -> DEPTH .)
+    SPACES          reduce using rule 28 (fact -> DEPTH .)
+    SWAP            reduce using rule 28 (fact -> DEPTH .)
+    KEY             reduce using rule 28 (fact -> DEPTH .)
+    DEPTH           reduce using rule 28 (fact -> DEPTH .)
+    DROP            reduce using rule 28 (fact -> DEPTH .)
+    $end            reduce using rule 28 (fact -> DEPTH .)
+    ELSE            reduce using rule 28 (fact -> DEPTH .)
+    ;               reduce using rule 28 (fact -> DEPTH .)
+    THEN            reduce using rule 28 (fact -> DEPTH .)
+
+
+state 23
+
+    (29) fact -> DROP .
+
+    :               reduce using rule 29 (fact -> DROP .)
+    IF              reduce using rule 29 (fact -> DROP .)
+    OPR             reduce using rule 29 (fact -> DROP .)
+    INT             reduce using rule 29 (fact -> DROP .)
+    WORD            reduce using rule 29 (fact -> DROP .)
+    COMMENT         reduce using rule 29 (fact -> DROP .)
+    .               reduce using rule 29 (fact -> DROP .)
+    DOTQUOTE        reduce using rule 29 (fact -> DROP .)
+    EMIT            reduce using rule 29 (fact -> DROP .)
+    CHAR            reduce using rule 29 (fact -> DROP .)
+    DUP             reduce using rule 29 (fact -> DROP .)
+    CR              reduce using rule 29 (fact -> DROP .)
+    SPACE           reduce using rule 29 (fact -> DROP .)
+    SPACES          reduce using rule 29 (fact -> DROP .)
+    SWAP            reduce using rule 29 (fact -> DROP .)
+    KEY             reduce using rule 29 (fact -> DROP .)
+    DEPTH           reduce using rule 29 (fact -> DROP .)
+    DROP            reduce using rule 29 (fact -> DROP .)
+    $end            reduce using rule 29 (fact -> DROP .)
+    ELSE            reduce using rule 29 (fact -> DROP .)
+    ;               reduce using rule 29 (fact -> DROP .)
+    THEN            reduce using rule 29 (fact -> DROP .)
+
+
+state 24
 
     (4) exp -> exp term .
 
@@ -723,13 +831,15 @@ state 22
     SPACES          reduce using rule 4 (exp -> exp term .)
     SWAP            reduce using rule 4 (exp -> exp term .)
     KEY             reduce using rule 4 (exp -> exp term .)
+    DEPTH           reduce using rule 4 (exp -> exp term .)
+    DROP            reduce using rule 4 (exp -> exp term .)
     $end            reduce using rule 4 (exp -> exp term .)
     ELSE            reduce using rule 4 (exp -> exp term .)
     ;               reduce using rule 4 (exp -> exp term .)
     THEN            reduce using rule 4 (exp -> exp term .)
 
 
-state 23
+state 25
 
     (5) exp -> exp function .
 
@@ -749,13 +859,15 @@ state 23
     SPACES          reduce using rule 5 (exp -> exp function .)
     SWAP            reduce using rule 5 (exp -> exp function .)
     KEY             reduce using rule 5 (exp -> exp function .)
+    DEPTH           reduce using rule 5 (exp -> exp function .)
+    DROP            reduce using rule 5 (exp -> exp function .)
     $end            reduce using rule 5 (exp -> exp function .)
     ELSE            reduce using rule 5 (exp -> exp function .)
     ;               reduce using rule 5 (exp -> exp function .)
     THEN            reduce using rule 5 (exp -> exp function .)
 
 
-state 24
+state 26
 
     (6) exp -> exp conditional .
 
@@ -775,13 +887,15 @@ state 24
     SPACES          reduce using rule 6 (exp -> exp conditional .)
     SWAP            reduce using rule 6 (exp -> exp conditional .)
     KEY             reduce using rule 6 (exp -> exp conditional .)
+    DEPTH           reduce using rule 6 (exp -> exp conditional .)
+    DROP            reduce using rule 6 (exp -> exp conditional .)
     $end            reduce using rule 6 (exp -> exp conditional .)
     ELSE            reduce using rule 6 (exp -> exp conditional .)
     ;               reduce using rule 6 (exp -> exp conditional .)
     THEN            reduce using rule 6 (exp -> exp conditional .)
 
 
-state 25
+state 27
 
     (8) function -> : NAME . ;
     (9) function -> : NAME . exp ;
@@ -812,8 +926,10 @@ state 25
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    ;               shift and go to state 28
+    ;               shift and go to state 30
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -830,14 +946,16 @@ state 25
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    exp                            shift and go to state 29
+    exp                            shift and go to state 31
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
     fact                           shift and go to state 5
 
-state 26
+state 28
 
     (10) conditional -> IF ELSE . THEN
     (12) conditional -> IF ELSE . exp THEN
@@ -868,8 +986,10 @@ state 26
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    THEN            shift and go to state 30
+    THEN            shift and go to state 32
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -886,14 +1006,16 @@ state 26
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    exp                            shift and go to state 31
+    exp                            shift and go to state 33
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
     fact                           shift and go to state 5
 
-state 27
+state 29
 
     (11) conditional -> IF exp . ELSE THEN
     (13) conditional -> IF exp . ELSE exp THEN
@@ -921,8 +1043,10 @@ state 27
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    ELSE            shift and go to state 32
+    ELSE            shift and go to state 34
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -939,13 +1063,15 @@ state 27
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    term                           shift and go to state 22
-    function                       shift and go to state 23
-    conditional                    shift and go to state 24
+    term                           shift and go to state 24
+    function                       shift and go to state 25
+    conditional                    shift and go to state 26
     fact                           shift and go to state 5
 
-state 28
+state 30
 
     (8) function -> : NAME ; .
 
@@ -965,13 +1091,15 @@ state 28
     SPACES          reduce using rule 8 (function -> : NAME ; .)
     SWAP            reduce using rule 8 (function -> : NAME ; .)
     KEY             reduce using rule 8 (function -> : NAME ; .)
+    DEPTH           reduce using rule 8 (function -> : NAME ; .)
+    DROP            reduce using rule 8 (function -> : NAME ; .)
     $end            reduce using rule 8 (function -> : NAME ; .)
     ELSE            reduce using rule 8 (function -> : NAME ; .)
     ;               reduce using rule 8 (function -> : NAME ; .)
     THEN            reduce using rule 8 (function -> : NAME ; .)
 
 
-state 29
+state 31
 
     (9) function -> : NAME exp . ;
     (4) exp -> exp . term
@@ -998,8 +1126,10 @@ state 29
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    ;               shift and go to state 33
+    ;               shift and go to state 35
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -1016,13 +1146,15 @@ state 29
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    term                           shift and go to state 22
-    function                       shift and go to state 23
-    conditional                    shift and go to state 24
+    term                           shift and go to state 24
+    function                       shift and go to state 25
+    conditional                    shift and go to state 26
     fact                           shift and go to state 5
 
-state 30
+state 32
 
     (10) conditional -> IF ELSE THEN .
 
@@ -1042,13 +1174,15 @@ state 30
     SPACES          reduce using rule 10 (conditional -> IF ELSE THEN .)
     SWAP            reduce using rule 10 (conditional -> IF ELSE THEN .)
     KEY             reduce using rule 10 (conditional -> IF ELSE THEN .)
+    DEPTH           reduce using rule 10 (conditional -> IF ELSE THEN .)
+    DROP            reduce using rule 10 (conditional -> IF ELSE THEN .)
     $end            reduce using rule 10 (conditional -> IF ELSE THEN .)
     ELSE            reduce using rule 10 (conditional -> IF ELSE THEN .)
     ;               reduce using rule 10 (conditional -> IF ELSE THEN .)
     THEN            reduce using rule 10 (conditional -> IF ELSE THEN .)
 
 
-state 31
+state 33
 
     (12) conditional -> IF ELSE exp . THEN
     (4) exp -> exp . term
@@ -1075,8 +1209,10 @@ state 31
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    THEN            shift and go to state 34
+    THEN            shift and go to state 36
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -1093,13 +1229,15 @@ state 31
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    term                           shift and go to state 22
-    function                       shift and go to state 23
-    conditional                    shift and go to state 24
+    term                           shift and go to state 24
+    function                       shift and go to state 25
+    conditional                    shift and go to state 26
     fact                           shift and go to state 5
 
-state 32
+state 34
 
     (11) conditional -> IF exp ELSE . THEN
     (13) conditional -> IF exp ELSE . exp THEN
@@ -1130,8 +1268,10 @@ state 32
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    THEN            shift and go to state 36
+    THEN            shift and go to state 38
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -1148,14 +1288,16 @@ state 32
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    exp                            shift and go to state 35
+    exp                            shift and go to state 37
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
     fact                           shift and go to state 5
 
-state 33
+state 35
 
     (9) function -> : NAME exp ; .
 
@@ -1175,13 +1317,15 @@ state 33
     SPACES          reduce using rule 9 (function -> : NAME exp ; .)
     SWAP            reduce using rule 9 (function -> : NAME exp ; .)
     KEY             reduce using rule 9 (function -> : NAME exp ; .)
+    DEPTH           reduce using rule 9 (function -> : NAME exp ; .)
+    DROP            reduce using rule 9 (function -> : NAME exp ; .)
     $end            reduce using rule 9 (function -> : NAME exp ; .)
     ELSE            reduce using rule 9 (function -> : NAME exp ; .)
     ;               reduce using rule 9 (function -> : NAME exp ; .)
     THEN            reduce using rule 9 (function -> : NAME exp ; .)
 
 
-state 34
+state 36
 
     (12) conditional -> IF ELSE exp THEN .
 
@@ -1201,13 +1345,15 @@ state 34
     SPACES          reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     SWAP            reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     KEY             reduce using rule 12 (conditional -> IF ELSE exp THEN .)
+    DEPTH           reduce using rule 12 (conditional -> IF ELSE exp THEN .)
+    DROP            reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     $end            reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     ELSE            reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     ;               reduce using rule 12 (conditional -> IF ELSE exp THEN .)
     THEN            reduce using rule 12 (conditional -> IF ELSE exp THEN .)
 
 
-state 35
+state 37
 
     (13) conditional -> IF exp ELSE exp . THEN
     (4) exp -> exp . term
@@ -1234,8 +1380,10 @@ state 35
     (25) fact -> . SPACES
     (26) fact -> . SWAP
     (27) fact -> . KEY
+    (28) fact -> . DEPTH
+    (29) fact -> . DROP
 
-    THEN            shift and go to state 37
+    THEN            shift and go to state 39
     :               shift and go to state 6
     IF              shift and go to state 7
     OPR             shift and go to state 8
@@ -1252,13 +1400,15 @@ state 35
     SPACES          shift and go to state 19
     SWAP            shift and go to state 20
     KEY             shift and go to state 21
+    DEPTH           shift and go to state 22
+    DROP            shift and go to state 23
 
-    term                           shift and go to state 22
-    function                       shift and go to state 23
-    conditional                    shift and go to state 24
+    term                           shift and go to state 24
+    function                       shift and go to state 25
+    conditional                    shift and go to state 26
     fact                           shift and go to state 5
 
-state 36
+state 38
 
     (11) conditional -> IF exp ELSE THEN .
 
@@ -1278,13 +1428,15 @@ state 36
     SPACES          reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     SWAP            reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     KEY             reduce using rule 11 (conditional -> IF exp ELSE THEN .)
+    DEPTH           reduce using rule 11 (conditional -> IF exp ELSE THEN .)
+    DROP            reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     $end            reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     ELSE            reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     ;               reduce using rule 11 (conditional -> IF exp ELSE THEN .)
     THEN            reduce using rule 11 (conditional -> IF exp ELSE THEN .)
 
 
-state 37
+state 39
 
     (13) conditional -> IF exp ELSE exp THEN .
 
@@ -1304,6 +1456,8 @@ state 37
     SPACES          reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
     SWAP            reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
     KEY             reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
+    DEPTH           reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
+    DROP            reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
     $end            reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
     ELSE            reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)
     ;               reduce using rule 13 (conditional -> IF exp ELSE exp THEN .)

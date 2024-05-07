@@ -10,7 +10,7 @@ def p_exp1(p):
            | function
            | conditional
     """
-    p[0] = p[1]
+    p[0] = p[1] + "STOP\n"
 
 def p_exp2(p):
     "exp : exp term"
@@ -46,7 +46,7 @@ def p_functions1(p):
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: "\n"})
+        parser.func.update({p[2]: "\nreturn\n"})
         parser.word_count += 2
         p[0] = ""
 
@@ -56,7 +56,7 @@ def p_functions2(p):
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: p[3]})
+        parser.func.update({p[2]: f"{p[3]}return\n"})
         parser.word_count += 2
         p[0] = ""
 

@@ -18,6 +18,7 @@ tokens = (
     'ELSE',
     'THEN',
     'DEPTH',
+    'DROP',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
