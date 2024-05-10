@@ -9,8 +9,9 @@ def p_exp1(p):
     """exp : term
            | function
            | conditional
+           | loop
     """
-    p[0] = p[1] + "STOP\n"
+    p[0] = p[1]
 
 def p_exp2(p):
     "exp : exp term"
@@ -46,7 +47,7 @@ def p_functions1(p):
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: "\nreturn\n"})
+        parser.func.update({p[2]: "\n"})
         parser.word_count += 2
         p[0] = ""
 
@@ -56,7 +57,7 @@ def p_functions2(p):
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: f"{p[3]}return\n"})
+        parser.func.update({p[2]: f"{p[3]}\n"})
         parser.word_count += 2
         p[0] = ""
 
@@ -85,6 +86,62 @@ def p_conditional4(p):
     parser.else_count += 1
 
 
+def p_loop1(p):
+    "loop : DO LOOP"
+    p[0] = f"""
+WHILE{parser.var_size}:
+PUSHG {parser.var_size}
+PUSHG {parser.var_size+1}
+SUP
+JZ ENDWHILE{parser.var_size}
+JUMP WHILE{parser.var_size}
+ENDWHILE{parser.var_size}:
+"""
+    parser.var_size += 2
+
+def p_loop2(p):
+    "loop : DO exp LOOP"
+    p[0] = f"""
+WHILE{parser.var_size}:
+{p[2]}PUSHG {parser.var_size}
+PUSHG {parser.var_size+1}
+SUP
+JZ ENDWHILE{parser.var_size}
+JUMP WHILE{parser.var_size}
+ENDWHILE{parser.var_size}:
+"""
+    parser.var_size += 2
+
+
+def p_plusloop1(p):
+    "loop : DO PLUSLOOP"
+    p[0] = f"""
+WHILE{parser.var_size}:
+PUSHG {parser.var_size}
+PUSHG {parser.var_size+1}
+SUP
+JZ ENDWHILE{parser.var_size}
+JUMP WHILE{parser.var_size}
+ENDWHILE{parser.var_size}:
+"""
+    parser.var_size += 2
+
+def p_plusloop2(p):
+    "loop : DO exp PLUSLOOP"
+    p[0] = f"""
+WHILE{parser.var_size}:
+PUSHG {parser.var_size}
+PUSHG {parser.var_size+1}
+SUP
+JZ ENDWHILE{parser.var_size}
+{p[2]}
+JUMP WHILE{parser.var_size}
+ENDWHILE{parser.var_size}:
+"""
+    parser.var_size += 2
+
+
+
 
 def p_factOPR(p):
     "fact : OPR"
@@ -98,6 +155,10 @@ def p_factOPR(p):
         p[0] = 'DIV\n'
     elif p[1] == '%':
         p[0] = 'MOD\n'
+    elif p[1] == '==':
+        p[0] = 'EQUAL\n'
+    elif p[1] == '!=':
+        p[0] = 'EQUAL NOT\n'
     elif p[1] == '<':
         p[0] = 'INF\n'
     elif p[1] == '<=':
@@ -118,10 +179,12 @@ def p_factInt(p):
 
 def p_factWord(p):
     "fact : WORD"
-    p[0] = p[1]
     if p[1] not in parser.func:
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
+        p[0] = ""
+    else:    
+        p[0] = f"{p[1]}:\n\t{parser.func[p[1]]}\n"
 
 
 
@@ -207,6 +270,7 @@ parser.func = {}
 parser.word_count = 0
 parser.else_count = 0
 parser.stack_size = 0
+parser.var_size = 0
 
 source = ""
 for linha in sys.stdin:
@@ -215,10 +279,10 @@ codigo = parser.parse(source)
 if parser.success:
     print('Parsing completed!')
     print(codigo)
-    for key, value in parser.func.items():
-        print(f"{key}:")
-        # Replace "\n" with "\n\t"
-        modified_value = value.replace("\n", "\n\t")
-        print("\t"+modified_value)
+    #for key, value in parser.func.items():
+    #    print(f"{key}:")
+    #    # Replace "\n" with "\n\t"
+    #    modified_value = value.replace("\n", "\n\t")
+    #    print("\t"+modified_value)
 else:
     print('Parsing failed!')

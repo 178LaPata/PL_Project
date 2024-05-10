@@ -19,6 +19,9 @@ tokens = (
     'THEN',
     'DEPTH',
     'DROP',
+    'DO',
+    'LOOP',
+    'PLUSLOOP',
     #'NUMBER_FLOAT',
     #'PLUS',
     #'MINUS',
@@ -112,6 +115,17 @@ def t_DROP(t):
     r'(?i)\bDROP\b'
     return t
 
+def t_DO(t):
+    r'(?i)\bDO\b'
+    return t
+
+def t_LOOP(t):
+    r'(?i)\bLOOP\b'
+    return t
+
+def t_PLUSLOOP(t):
+    r'(?i)\b+LOOP\b'
+    return t
 
 
 
@@ -121,7 +135,7 @@ def t_DROP(t):
 
 
 def t_OPR(t):
-    r'(\+|\-|\*|\/|\%|<=|>=|<|>)'
+    r'(\+|\-|\*|\/|\%|==|!=|<=|>=|<|>)'
     return t
 
 #words
