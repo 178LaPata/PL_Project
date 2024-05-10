@@ -124,7 +124,7 @@ def t_LOOP(t):
     return t
 
 def t_PLUSLOOP(t):
-    r'(?i)\b+LOOP\b'
+    r'(?i)\b\+LOOP\b'
     return t
 
 

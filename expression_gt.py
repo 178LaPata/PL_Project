@@ -184,7 +184,7 @@ def p_factWord(p):
         parser.success = False
         p[0] = ""
     else:    
-        p[0] = f"{p[1]}:\n\t{parser.func[p[1]]}\n"
+        p[0] = f"{p[1]}:\n{parser.func[p[1]]}\n"
 
 
 
@@ -278,7 +278,11 @@ for linha in sys.stdin:
 codigo = parser.parse(source)
 if parser.success:
     print('Parsing completed!')
+    for i in range(parser.var_size):
+        print("PUSHI 0")
+    print("START\n")
     print(codigo)
+    print("STOP\n")
     #for key, value in parser.func.items():
     #    print(f"{key}:")
     #    # Replace "\n" with "\n\t"
