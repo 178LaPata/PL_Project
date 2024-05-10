@@ -10,70 +10,71 @@ Rule 4     exp -> loop
 Rule 5     exp -> exp term
 Rule 6     exp -> exp function
 Rule 7     exp -> exp conditional
-Rule 8     term -> fact
-Rule 9     function -> : NAME ;
-Rule 10    function -> : NAME exp ;
-Rule 11    conditional -> IF ELSE THEN
-Rule 12    conditional -> IF exp ELSE THEN
-Rule 13    conditional -> IF ELSE exp THEN
-Rule 14    conditional -> IF exp ELSE exp THEN
-Rule 15    loop -> DO LOOP
-Rule 16    loop -> DO exp LOOP
-Rule 17    loop -> DO PLUSLOOP
-Rule 18    loop -> DO exp PLUSLOOP
-Rule 19    fact -> OPR
-Rule 20    fact -> INT
-Rule 21    fact -> WORD
-Rule 22    fact -> COMMENT
-Rule 23    fact -> .
-Rule 24    fact -> DOTQUOTE
-Rule 25    fact -> EMIT
-Rule 26    fact -> CHAR
-Rule 27    fact -> DUP
-Rule 28    fact -> CR
-Rule 29    fact -> SPACE
-Rule 30    fact -> SPACES
-Rule 31    fact -> SWAP
-Rule 32    fact -> KEY
-Rule 33    fact -> DEPTH
-Rule 34    fact -> DROP
+Rule 8     exp -> exp loop
+Rule 9     term -> fact
+Rule 10    function -> : NAME ;
+Rule 11    function -> : NAME exp ;
+Rule 12    conditional -> IF ELSE THEN
+Rule 13    conditional -> IF exp ELSE THEN
+Rule 14    conditional -> IF ELSE exp THEN
+Rule 15    conditional -> IF exp ELSE exp THEN
+Rule 16    loop -> DO LOOP
+Rule 17    loop -> DO exp LOOP
+Rule 18    loop -> DO PLUSLOOP
+Rule 19    loop -> DO exp PLUSLOOP
+Rule 20    fact -> OPR
+Rule 21    fact -> INT
+Rule 22    fact -> WORD
+Rule 23    fact -> COMMENT
+Rule 24    fact -> .
+Rule 25    fact -> DOTQUOTE
+Rule 26    fact -> EMIT
+Rule 27    fact -> CHAR
+Rule 28    fact -> DUP
+Rule 29    fact -> CR
+Rule 30    fact -> SPACE
+Rule 31    fact -> SPACES
+Rule 32    fact -> SWAP
+Rule 33    fact -> KEY
+Rule 34    fact -> DEPTH
+Rule 35    fact -> DROP
 
 Terminals, with rules where they appear
 
-.                    : 23
-:                    : 9 10
-;                    : 9 10
-CHAR                 : 26
-COMMENT              : 22
-CR                   : 28
-DEPTH                : 33
-DO                   : 15 16 17 18
-DOTQUOTE             : 24
-DROP                 : 34
-DUP                  : 27
-ELSE                 : 11 12 13 14
-EMIT                 : 25
-IF                   : 11 12 13 14
-INT                  : 20
-KEY                  : 32
-LOOP                 : 15 16
-NAME                 : 9 10
-OPR                  : 19
-PLUSLOOP             : 17 18
-SPACE                : 29
-SPACES               : 30
-SWAP                 : 31
-THEN                 : 11 12 13 14
-WORD                 : 21
+.                    : 24
+:                    : 10 11
+;                    : 10 11
+CHAR                 : 27
+COMMENT              : 23
+CR                   : 29
+DEPTH                : 34
+DO                   : 16 17 18 19
+DOTQUOTE             : 25
+DROP                 : 35
+DUP                  : 28
+ELSE                 : 12 13 14 15
+EMIT                 : 26
+IF                   : 12 13 14 15
+INT                  : 21
+KEY                  : 33
+LOOP                 : 16 17
+NAME                 : 10 11
+OPR                  : 20
+PLUSLOOP             : 18 19
+SPACE                : 30
+SPACES               : 31
+SWAP                 : 32
+THEN                 : 12 13 14 15
+WORD                 : 22
 error                : 
 
 Nonterminals, with rules where they appear
 
 conditional          : 3 7
-exp                  : 5 6 7 10 12 13 14 14 16 18 0
-fact                 : 8
+exp                  : 5 6 7 8 11 13 14 15 15 17 19 0
+fact                 : 9
 function             : 2 6
-loop                 : 4
+loop                 : 4 8
 term                 : 1 5
 
 Parsing method: LALR
@@ -88,33 +89,34 @@ state 0
     (5) exp -> . exp term
     (6) exp -> . exp function
     (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
     :               shift and go to state 7
     IF              shift and go to state 8
@@ -149,32 +151,38 @@ state 1
     (5) exp -> exp . term
     (6) exp -> exp . function
     (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
     :               shift and go to state 7
     IF              shift and go to state 8
+    DO              shift and go to state 9
     OPR             shift and go to state 10
     INT             shift and go to state 11
     WORD            shift and go to state 12
@@ -195,6 +203,7 @@ state 1
     term                           shift and go to state 26
     function                       shift and go to state 27
     conditional                    shift and go to state 28
+    loop                           shift and go to state 29
     fact                           shift and go to state 6
 
 state 2
@@ -203,6 +212,7 @@ state 2
 
     :               reduce using rule 1 (exp -> term .)
     IF              reduce using rule 1 (exp -> term .)
+    DO              reduce using rule 1 (exp -> term .)
     OPR             reduce using rule 1 (exp -> term .)
     INT             reduce using rule 1 (exp -> term .)
     WORD            reduce using rule 1 (exp -> term .)
@@ -233,6 +243,7 @@ state 3
 
     :               reduce using rule 2 (exp -> function .)
     IF              reduce using rule 2 (exp -> function .)
+    DO              reduce using rule 2 (exp -> function .)
     OPR             reduce using rule 2 (exp -> function .)
     INT             reduce using rule 2 (exp -> function .)
     WORD            reduce using rule 2 (exp -> function .)
@@ -263,6 +274,7 @@ state 4
 
     :               reduce using rule 3 (exp -> conditional .)
     IF              reduce using rule 3 (exp -> conditional .)
+    DO              reduce using rule 3 (exp -> conditional .)
     OPR             reduce using rule 3 (exp -> conditional .)
     INT             reduce using rule 3 (exp -> conditional .)
     WORD            reduce using rule 3 (exp -> conditional .)
@@ -293,6 +305,7 @@ state 5
 
     :               reduce using rule 4 (exp -> loop .)
     IF              reduce using rule 4 (exp -> loop .)
+    DO              reduce using rule 4 (exp -> loop .)
     OPR             reduce using rule 4 (exp -> loop .)
     INT             reduce using rule 4 (exp -> loop .)
     WORD            reduce using rule 4 (exp -> loop .)
@@ -319,48 +332,49 @@ state 5
 
 state 6
 
-    (8) term -> fact .
+    (9) term -> fact .
 
-    :               reduce using rule 8 (term -> fact .)
-    IF              reduce using rule 8 (term -> fact .)
-    OPR             reduce using rule 8 (term -> fact .)
-    INT             reduce using rule 8 (term -> fact .)
-    WORD            reduce using rule 8 (term -> fact .)
-    COMMENT         reduce using rule 8 (term -> fact .)
-    .               reduce using rule 8 (term -> fact .)
-    DOTQUOTE        reduce using rule 8 (term -> fact .)
-    EMIT            reduce using rule 8 (term -> fact .)
-    CHAR            reduce using rule 8 (term -> fact .)
-    DUP             reduce using rule 8 (term -> fact .)
-    CR              reduce using rule 8 (term -> fact .)
-    SPACE           reduce using rule 8 (term -> fact .)
-    SPACES          reduce using rule 8 (term -> fact .)
-    SWAP            reduce using rule 8 (term -> fact .)
-    KEY             reduce using rule 8 (term -> fact .)
-    DEPTH           reduce using rule 8 (term -> fact .)
-    DROP            reduce using rule 8 (term -> fact .)
-    $end            reduce using rule 8 (term -> fact .)
-    ELSE            reduce using rule 8 (term -> fact .)
-    LOOP            reduce using rule 8 (term -> fact .)
-    PLUSLOOP        reduce using rule 8 (term -> fact .)
-    ;               reduce using rule 8 (term -> fact .)
-    THEN            reduce using rule 8 (term -> fact .)
+    :               reduce using rule 9 (term -> fact .)
+    IF              reduce using rule 9 (term -> fact .)
+    DO              reduce using rule 9 (term -> fact .)
+    OPR             reduce using rule 9 (term -> fact .)
+    INT             reduce using rule 9 (term -> fact .)
+    WORD            reduce using rule 9 (term -> fact .)
+    COMMENT         reduce using rule 9 (term -> fact .)
+    .               reduce using rule 9 (term -> fact .)
+    DOTQUOTE        reduce using rule 9 (term -> fact .)
+    EMIT            reduce using rule 9 (term -> fact .)
+    CHAR            reduce using rule 9 (term -> fact .)
+    DUP             reduce using rule 9 (term -> fact .)
+    CR              reduce using rule 9 (term -> fact .)
+    SPACE           reduce using rule 9 (term -> fact .)
+    SPACES          reduce using rule 9 (term -> fact .)
+    SWAP            reduce using rule 9 (term -> fact .)
+    KEY             reduce using rule 9 (term -> fact .)
+    DEPTH           reduce using rule 9 (term -> fact .)
+    DROP            reduce using rule 9 (term -> fact .)
+    $end            reduce using rule 9 (term -> fact .)
+    ELSE            reduce using rule 9 (term -> fact .)
+    LOOP            reduce using rule 9 (term -> fact .)
+    PLUSLOOP        reduce using rule 9 (term -> fact .)
+    ;               reduce using rule 9 (term -> fact .)
+    THEN            reduce using rule 9 (term -> fact .)
 
 
 state 7
 
-    (9) function -> : . NAME ;
-    (10) function -> : . NAME exp ;
+    (10) function -> : . NAME ;
+    (11) function -> : . NAME exp ;
 
-    NAME            shift and go to state 29
+    NAME            shift and go to state 30
 
 
 state 8
 
-    (11) conditional -> IF . ELSE THEN
-    (12) conditional -> IF . exp ELSE THEN
-    (13) conditional -> IF . ELSE exp THEN
-    (14) conditional -> IF . exp ELSE exp THEN
+    (12) conditional -> IF . ELSE THEN
+    (13) conditional -> IF . exp ELSE THEN
+    (14) conditional -> IF . ELSE exp THEN
+    (15) conditional -> IF . exp ELSE exp THEN
     (1) exp -> . term
     (2) exp -> . function
     (3) exp -> . conditional
@@ -368,35 +382,36 @@ state 8
     (5) exp -> . exp term
     (6) exp -> . exp function
     (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    ELSE            shift and go to state 30
+    ELSE            shift and go to state 31
     :               shift and go to state 7
     IF              shift and go to state 8
     DO              shift and go to state 9
@@ -417,7 +432,7 @@ state 8
     DEPTH           shift and go to state 24
     DROP            shift and go to state 25
 
-    exp                            shift and go to state 31
+    exp                            shift and go to state 32
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
@@ -426,10 +441,10 @@ state 8
 
 state 9
 
-    (15) loop -> DO . LOOP
-    (16) loop -> DO . exp LOOP
-    (17) loop -> DO . PLUSLOOP
-    (18) loop -> DO . exp PLUSLOOP
+    (16) loop -> DO . LOOP
+    (17) loop -> DO . exp LOOP
+    (18) loop -> DO . PLUSLOOP
+    (19) loop -> DO . exp PLUSLOOP
     (1) exp -> . term
     (2) exp -> . function
     (3) exp -> . conditional
@@ -437,36 +452,37 @@ state 9
     (5) exp -> . exp term
     (6) exp -> . exp function
     (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    LOOP            shift and go to state 32
-    PLUSLOOP        shift and go to state 34
+    LOOP            shift and go to state 33
+    PLUSLOOP        shift and go to state 35
     :               shift and go to state 7
     IF              shift and go to state 8
     DO              shift and go to state 9
@@ -487,7 +503,7 @@ state 9
     DEPTH           shift and go to state 24
     DROP            shift and go to state 25
 
-    exp                            shift and go to state 33
+    exp                            shift and go to state 34
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
@@ -496,482 +512,498 @@ state 9
 
 state 10
 
-    (19) fact -> OPR .
+    (20) fact -> OPR .
 
-    :               reduce using rule 19 (fact -> OPR .)
-    IF              reduce using rule 19 (fact -> OPR .)
-    OPR             reduce using rule 19 (fact -> OPR .)
-    INT             reduce using rule 19 (fact -> OPR .)
-    WORD            reduce using rule 19 (fact -> OPR .)
-    COMMENT         reduce using rule 19 (fact -> OPR .)
-    .               reduce using rule 19 (fact -> OPR .)
-    DOTQUOTE        reduce using rule 19 (fact -> OPR .)
-    EMIT            reduce using rule 19 (fact -> OPR .)
-    CHAR            reduce using rule 19 (fact -> OPR .)
-    DUP             reduce using rule 19 (fact -> OPR .)
-    CR              reduce using rule 19 (fact -> OPR .)
-    SPACE           reduce using rule 19 (fact -> OPR .)
-    SPACES          reduce using rule 19 (fact -> OPR .)
-    SWAP            reduce using rule 19 (fact -> OPR .)
-    KEY             reduce using rule 19 (fact -> OPR .)
-    DEPTH           reduce using rule 19 (fact -> OPR .)
-    DROP            reduce using rule 19 (fact -> OPR .)
-    $end            reduce using rule 19 (fact -> OPR .)
-    ELSE            reduce using rule 19 (fact -> OPR .)
-    LOOP            reduce using rule 19 (fact -> OPR .)
-    PLUSLOOP        reduce using rule 19 (fact -> OPR .)
-    ;               reduce using rule 19 (fact -> OPR .)
-    THEN            reduce using rule 19 (fact -> OPR .)
+    :               reduce using rule 20 (fact -> OPR .)
+    IF              reduce using rule 20 (fact -> OPR .)
+    DO              reduce using rule 20 (fact -> OPR .)
+    OPR             reduce using rule 20 (fact -> OPR .)
+    INT             reduce using rule 20 (fact -> OPR .)
+    WORD            reduce using rule 20 (fact -> OPR .)
+    COMMENT         reduce using rule 20 (fact -> OPR .)
+    .               reduce using rule 20 (fact -> OPR .)
+    DOTQUOTE        reduce using rule 20 (fact -> OPR .)
+    EMIT            reduce using rule 20 (fact -> OPR .)
+    CHAR            reduce using rule 20 (fact -> OPR .)
+    DUP             reduce using rule 20 (fact -> OPR .)
+    CR              reduce using rule 20 (fact -> OPR .)
+    SPACE           reduce using rule 20 (fact -> OPR .)
+    SPACES          reduce using rule 20 (fact -> OPR .)
+    SWAP            reduce using rule 20 (fact -> OPR .)
+    KEY             reduce using rule 20 (fact -> OPR .)
+    DEPTH           reduce using rule 20 (fact -> OPR .)
+    DROP            reduce using rule 20 (fact -> OPR .)
+    $end            reduce using rule 20 (fact -> OPR .)
+    ELSE            reduce using rule 20 (fact -> OPR .)
+    LOOP            reduce using rule 20 (fact -> OPR .)
+    PLUSLOOP        reduce using rule 20 (fact -> OPR .)
+    ;               reduce using rule 20 (fact -> OPR .)
+    THEN            reduce using rule 20 (fact -> OPR .)
 
 
 state 11
 
-    (20) fact -> INT .
+    (21) fact -> INT .
 
-    :               reduce using rule 20 (fact -> INT .)
-    IF              reduce using rule 20 (fact -> INT .)
-    OPR             reduce using rule 20 (fact -> INT .)
-    INT             reduce using rule 20 (fact -> INT .)
-    WORD            reduce using rule 20 (fact -> INT .)
-    COMMENT         reduce using rule 20 (fact -> INT .)
-    .               reduce using rule 20 (fact -> INT .)
-    DOTQUOTE        reduce using rule 20 (fact -> INT .)
-    EMIT            reduce using rule 20 (fact -> INT .)
-    CHAR            reduce using rule 20 (fact -> INT .)
-    DUP             reduce using rule 20 (fact -> INT .)
-    CR              reduce using rule 20 (fact -> INT .)
-    SPACE           reduce using rule 20 (fact -> INT .)
-    SPACES          reduce using rule 20 (fact -> INT .)
-    SWAP            reduce using rule 20 (fact -> INT .)
-    KEY             reduce using rule 20 (fact -> INT .)
-    DEPTH           reduce using rule 20 (fact -> INT .)
-    DROP            reduce using rule 20 (fact -> INT .)
-    $end            reduce using rule 20 (fact -> INT .)
-    ELSE            reduce using rule 20 (fact -> INT .)
-    LOOP            reduce using rule 20 (fact -> INT .)
-    PLUSLOOP        reduce using rule 20 (fact -> INT .)
-    ;               reduce using rule 20 (fact -> INT .)
-    THEN            reduce using rule 20 (fact -> INT .)
+    :               reduce using rule 21 (fact -> INT .)
+    IF              reduce using rule 21 (fact -> INT .)
+    DO              reduce using rule 21 (fact -> INT .)
+    OPR             reduce using rule 21 (fact -> INT .)
+    INT             reduce using rule 21 (fact -> INT .)
+    WORD            reduce using rule 21 (fact -> INT .)
+    COMMENT         reduce using rule 21 (fact -> INT .)
+    .               reduce using rule 21 (fact -> INT .)
+    DOTQUOTE        reduce using rule 21 (fact -> INT .)
+    EMIT            reduce using rule 21 (fact -> INT .)
+    CHAR            reduce using rule 21 (fact -> INT .)
+    DUP             reduce using rule 21 (fact -> INT .)
+    CR              reduce using rule 21 (fact -> INT .)
+    SPACE           reduce using rule 21 (fact -> INT .)
+    SPACES          reduce using rule 21 (fact -> INT .)
+    SWAP            reduce using rule 21 (fact -> INT .)
+    KEY             reduce using rule 21 (fact -> INT .)
+    DEPTH           reduce using rule 21 (fact -> INT .)
+    DROP            reduce using rule 21 (fact -> INT .)
+    $end            reduce using rule 21 (fact -> INT .)
+    ELSE            reduce using rule 21 (fact -> INT .)
+    LOOP            reduce using rule 21 (fact -> INT .)
+    PLUSLOOP        reduce using rule 21 (fact -> INT .)
+    ;               reduce using rule 21 (fact -> INT .)
+    THEN            reduce using rule 21 (fact -> INT .)
 
 
 state 12
 
-    (21) fact -> WORD .
+    (22) fact -> WORD .
 
-    :               reduce using rule 21 (fact -> WORD .)
-    IF              reduce using rule 21 (fact -> WORD .)
-    OPR             reduce using rule 21 (fact -> WORD .)
-    INT             reduce using rule 21 (fact -> WORD .)
-    WORD            reduce using rule 21 (fact -> WORD .)
-    COMMENT         reduce using rule 21 (fact -> WORD .)
-    .               reduce using rule 21 (fact -> WORD .)
-    DOTQUOTE        reduce using rule 21 (fact -> WORD .)
-    EMIT            reduce using rule 21 (fact -> WORD .)
-    CHAR            reduce using rule 21 (fact -> WORD .)
-    DUP             reduce using rule 21 (fact -> WORD .)
-    CR              reduce using rule 21 (fact -> WORD .)
-    SPACE           reduce using rule 21 (fact -> WORD .)
-    SPACES          reduce using rule 21 (fact -> WORD .)
-    SWAP            reduce using rule 21 (fact -> WORD .)
-    KEY             reduce using rule 21 (fact -> WORD .)
-    DEPTH           reduce using rule 21 (fact -> WORD .)
-    DROP            reduce using rule 21 (fact -> WORD .)
-    $end            reduce using rule 21 (fact -> WORD .)
-    ELSE            reduce using rule 21 (fact -> WORD .)
-    LOOP            reduce using rule 21 (fact -> WORD .)
-    PLUSLOOP        reduce using rule 21 (fact -> WORD .)
-    ;               reduce using rule 21 (fact -> WORD .)
-    THEN            reduce using rule 21 (fact -> WORD .)
+    :               reduce using rule 22 (fact -> WORD .)
+    IF              reduce using rule 22 (fact -> WORD .)
+    DO              reduce using rule 22 (fact -> WORD .)
+    OPR             reduce using rule 22 (fact -> WORD .)
+    INT             reduce using rule 22 (fact -> WORD .)
+    WORD            reduce using rule 22 (fact -> WORD .)
+    COMMENT         reduce using rule 22 (fact -> WORD .)
+    .               reduce using rule 22 (fact -> WORD .)
+    DOTQUOTE        reduce using rule 22 (fact -> WORD .)
+    EMIT            reduce using rule 22 (fact -> WORD .)
+    CHAR            reduce using rule 22 (fact -> WORD .)
+    DUP             reduce using rule 22 (fact -> WORD .)
+    CR              reduce using rule 22 (fact -> WORD .)
+    SPACE           reduce using rule 22 (fact -> WORD .)
+    SPACES          reduce using rule 22 (fact -> WORD .)
+    SWAP            reduce using rule 22 (fact -> WORD .)
+    KEY             reduce using rule 22 (fact -> WORD .)
+    DEPTH           reduce using rule 22 (fact -> WORD .)
+    DROP            reduce using rule 22 (fact -> WORD .)
+    $end            reduce using rule 22 (fact -> WORD .)
+    ELSE            reduce using rule 22 (fact -> WORD .)
+    LOOP            reduce using rule 22 (fact -> WORD .)
+    PLUSLOOP        reduce using rule 22 (fact -> WORD .)
+    ;               reduce using rule 22 (fact -> WORD .)
+    THEN            reduce using rule 22 (fact -> WORD .)
 
 
 state 13
 
-    (22) fact -> COMMENT .
+    (23) fact -> COMMENT .
 
-    :               reduce using rule 22 (fact -> COMMENT .)
-    IF              reduce using rule 22 (fact -> COMMENT .)
-    OPR             reduce using rule 22 (fact -> COMMENT .)
-    INT             reduce using rule 22 (fact -> COMMENT .)
-    WORD            reduce using rule 22 (fact -> COMMENT .)
-    COMMENT         reduce using rule 22 (fact -> COMMENT .)
-    .               reduce using rule 22 (fact -> COMMENT .)
-    DOTQUOTE        reduce using rule 22 (fact -> COMMENT .)
-    EMIT            reduce using rule 22 (fact -> COMMENT .)
-    CHAR            reduce using rule 22 (fact -> COMMENT .)
-    DUP             reduce using rule 22 (fact -> COMMENT .)
-    CR              reduce using rule 22 (fact -> COMMENT .)
-    SPACE           reduce using rule 22 (fact -> COMMENT .)
-    SPACES          reduce using rule 22 (fact -> COMMENT .)
-    SWAP            reduce using rule 22 (fact -> COMMENT .)
-    KEY             reduce using rule 22 (fact -> COMMENT .)
-    DEPTH           reduce using rule 22 (fact -> COMMENT .)
-    DROP            reduce using rule 22 (fact -> COMMENT .)
-    $end            reduce using rule 22 (fact -> COMMENT .)
-    ELSE            reduce using rule 22 (fact -> COMMENT .)
-    LOOP            reduce using rule 22 (fact -> COMMENT .)
-    PLUSLOOP        reduce using rule 22 (fact -> COMMENT .)
-    ;               reduce using rule 22 (fact -> COMMENT .)
-    THEN            reduce using rule 22 (fact -> COMMENT .)
+    :               reduce using rule 23 (fact -> COMMENT .)
+    IF              reduce using rule 23 (fact -> COMMENT .)
+    DO              reduce using rule 23 (fact -> COMMENT .)
+    OPR             reduce using rule 23 (fact -> COMMENT .)
+    INT             reduce using rule 23 (fact -> COMMENT .)
+    WORD            reduce using rule 23 (fact -> COMMENT .)
+    COMMENT         reduce using rule 23 (fact -> COMMENT .)
+    .               reduce using rule 23 (fact -> COMMENT .)
+    DOTQUOTE        reduce using rule 23 (fact -> COMMENT .)
+    EMIT            reduce using rule 23 (fact -> COMMENT .)
+    CHAR            reduce using rule 23 (fact -> COMMENT .)
+    DUP             reduce using rule 23 (fact -> COMMENT .)
+    CR              reduce using rule 23 (fact -> COMMENT .)
+    SPACE           reduce using rule 23 (fact -> COMMENT .)
+    SPACES          reduce using rule 23 (fact -> COMMENT .)
+    SWAP            reduce using rule 23 (fact -> COMMENT .)
+    KEY             reduce using rule 23 (fact -> COMMENT .)
+    DEPTH           reduce using rule 23 (fact -> COMMENT .)
+    DROP            reduce using rule 23 (fact -> COMMENT .)
+    $end            reduce using rule 23 (fact -> COMMENT .)
+    ELSE            reduce using rule 23 (fact -> COMMENT .)
+    LOOP            reduce using rule 23 (fact -> COMMENT .)
+    PLUSLOOP        reduce using rule 23 (fact -> COMMENT .)
+    ;               reduce using rule 23 (fact -> COMMENT .)
+    THEN            reduce using rule 23 (fact -> COMMENT .)
 
 
 state 14
 
-    (23) fact -> . .
+    (24) fact -> . .
 
-    :               reduce using rule 23 (fact -> . .)
-    IF              reduce using rule 23 (fact -> . .)
-    OPR             reduce using rule 23 (fact -> . .)
-    INT             reduce using rule 23 (fact -> . .)
-    WORD            reduce using rule 23 (fact -> . .)
-    COMMENT         reduce using rule 23 (fact -> . .)
-    .               reduce using rule 23 (fact -> . .)
-    DOTQUOTE        reduce using rule 23 (fact -> . .)
-    EMIT            reduce using rule 23 (fact -> . .)
-    CHAR            reduce using rule 23 (fact -> . .)
-    DUP             reduce using rule 23 (fact -> . .)
-    CR              reduce using rule 23 (fact -> . .)
-    SPACE           reduce using rule 23 (fact -> . .)
-    SPACES          reduce using rule 23 (fact -> . .)
-    SWAP            reduce using rule 23 (fact -> . .)
-    KEY             reduce using rule 23 (fact -> . .)
-    DEPTH           reduce using rule 23 (fact -> . .)
-    DROP            reduce using rule 23 (fact -> . .)
-    $end            reduce using rule 23 (fact -> . .)
-    ELSE            reduce using rule 23 (fact -> . .)
-    LOOP            reduce using rule 23 (fact -> . .)
-    PLUSLOOP        reduce using rule 23 (fact -> . .)
-    ;               reduce using rule 23 (fact -> . .)
-    THEN            reduce using rule 23 (fact -> . .)
+    :               reduce using rule 24 (fact -> . .)
+    IF              reduce using rule 24 (fact -> . .)
+    DO              reduce using rule 24 (fact -> . .)
+    OPR             reduce using rule 24 (fact -> . .)
+    INT             reduce using rule 24 (fact -> . .)
+    WORD            reduce using rule 24 (fact -> . .)
+    COMMENT         reduce using rule 24 (fact -> . .)
+    .               reduce using rule 24 (fact -> . .)
+    DOTQUOTE        reduce using rule 24 (fact -> . .)
+    EMIT            reduce using rule 24 (fact -> . .)
+    CHAR            reduce using rule 24 (fact -> . .)
+    DUP             reduce using rule 24 (fact -> . .)
+    CR              reduce using rule 24 (fact -> . .)
+    SPACE           reduce using rule 24 (fact -> . .)
+    SPACES          reduce using rule 24 (fact -> . .)
+    SWAP            reduce using rule 24 (fact -> . .)
+    KEY             reduce using rule 24 (fact -> . .)
+    DEPTH           reduce using rule 24 (fact -> . .)
+    DROP            reduce using rule 24 (fact -> . .)
+    $end            reduce using rule 24 (fact -> . .)
+    ELSE            reduce using rule 24 (fact -> . .)
+    LOOP            reduce using rule 24 (fact -> . .)
+    PLUSLOOP        reduce using rule 24 (fact -> . .)
+    ;               reduce using rule 24 (fact -> . .)
+    THEN            reduce using rule 24 (fact -> . .)
 
 
 state 15
 
-    (24) fact -> DOTQUOTE .
+    (25) fact -> DOTQUOTE .
 
-    :               reduce using rule 24 (fact -> DOTQUOTE .)
-    IF              reduce using rule 24 (fact -> DOTQUOTE .)
-    OPR             reduce using rule 24 (fact -> DOTQUOTE .)
-    INT             reduce using rule 24 (fact -> DOTQUOTE .)
-    WORD            reduce using rule 24 (fact -> DOTQUOTE .)
-    COMMENT         reduce using rule 24 (fact -> DOTQUOTE .)
-    .               reduce using rule 24 (fact -> DOTQUOTE .)
-    DOTQUOTE        reduce using rule 24 (fact -> DOTQUOTE .)
-    EMIT            reduce using rule 24 (fact -> DOTQUOTE .)
-    CHAR            reduce using rule 24 (fact -> DOTQUOTE .)
-    DUP             reduce using rule 24 (fact -> DOTQUOTE .)
-    CR              reduce using rule 24 (fact -> DOTQUOTE .)
-    SPACE           reduce using rule 24 (fact -> DOTQUOTE .)
-    SPACES          reduce using rule 24 (fact -> DOTQUOTE .)
-    SWAP            reduce using rule 24 (fact -> DOTQUOTE .)
-    KEY             reduce using rule 24 (fact -> DOTQUOTE .)
-    DEPTH           reduce using rule 24 (fact -> DOTQUOTE .)
-    DROP            reduce using rule 24 (fact -> DOTQUOTE .)
-    $end            reduce using rule 24 (fact -> DOTQUOTE .)
-    ELSE            reduce using rule 24 (fact -> DOTQUOTE .)
-    LOOP            reduce using rule 24 (fact -> DOTQUOTE .)
-    PLUSLOOP        reduce using rule 24 (fact -> DOTQUOTE .)
-    ;               reduce using rule 24 (fact -> DOTQUOTE .)
-    THEN            reduce using rule 24 (fact -> DOTQUOTE .)
+    :               reduce using rule 25 (fact -> DOTQUOTE .)
+    IF              reduce using rule 25 (fact -> DOTQUOTE .)
+    DO              reduce using rule 25 (fact -> DOTQUOTE .)
+    OPR             reduce using rule 25 (fact -> DOTQUOTE .)
+    INT             reduce using rule 25 (fact -> DOTQUOTE .)
+    WORD            reduce using rule 25 (fact -> DOTQUOTE .)
+    COMMENT         reduce using rule 25 (fact -> DOTQUOTE .)
+    .               reduce using rule 25 (fact -> DOTQUOTE .)
+    DOTQUOTE        reduce using rule 25 (fact -> DOTQUOTE .)
+    EMIT            reduce using rule 25 (fact -> DOTQUOTE .)
+    CHAR            reduce using rule 25 (fact -> DOTQUOTE .)
+    DUP             reduce using rule 25 (fact -> DOTQUOTE .)
+    CR              reduce using rule 25 (fact -> DOTQUOTE .)
+    SPACE           reduce using rule 25 (fact -> DOTQUOTE .)
+    SPACES          reduce using rule 25 (fact -> DOTQUOTE .)
+    SWAP            reduce using rule 25 (fact -> DOTQUOTE .)
+    KEY             reduce using rule 25 (fact -> DOTQUOTE .)
+    DEPTH           reduce using rule 25 (fact -> DOTQUOTE .)
+    DROP            reduce using rule 25 (fact -> DOTQUOTE .)
+    $end            reduce using rule 25 (fact -> DOTQUOTE .)
+    ELSE            reduce using rule 25 (fact -> DOTQUOTE .)
+    LOOP            reduce using rule 25 (fact -> DOTQUOTE .)
+    PLUSLOOP        reduce using rule 25 (fact -> DOTQUOTE .)
+    ;               reduce using rule 25 (fact -> DOTQUOTE .)
+    THEN            reduce using rule 25 (fact -> DOTQUOTE .)
 
 
 state 16
 
-    (25) fact -> EMIT .
+    (26) fact -> EMIT .
 
-    :               reduce using rule 25 (fact -> EMIT .)
-    IF              reduce using rule 25 (fact -> EMIT .)
-    OPR             reduce using rule 25 (fact -> EMIT .)
-    INT             reduce using rule 25 (fact -> EMIT .)
-    WORD            reduce using rule 25 (fact -> EMIT .)
-    COMMENT         reduce using rule 25 (fact -> EMIT .)
-    .               reduce using rule 25 (fact -> EMIT .)
-    DOTQUOTE        reduce using rule 25 (fact -> EMIT .)
-    EMIT            reduce using rule 25 (fact -> EMIT .)
-    CHAR            reduce using rule 25 (fact -> EMIT .)
-    DUP             reduce using rule 25 (fact -> EMIT .)
-    CR              reduce using rule 25 (fact -> EMIT .)
-    SPACE           reduce using rule 25 (fact -> EMIT .)
-    SPACES          reduce using rule 25 (fact -> EMIT .)
-    SWAP            reduce using rule 25 (fact -> EMIT .)
-    KEY             reduce using rule 25 (fact -> EMIT .)
-    DEPTH           reduce using rule 25 (fact -> EMIT .)
-    DROP            reduce using rule 25 (fact -> EMIT .)
-    $end            reduce using rule 25 (fact -> EMIT .)
-    ELSE            reduce using rule 25 (fact -> EMIT .)
-    LOOP            reduce using rule 25 (fact -> EMIT .)
-    PLUSLOOP        reduce using rule 25 (fact -> EMIT .)
-    ;               reduce using rule 25 (fact -> EMIT .)
-    THEN            reduce using rule 25 (fact -> EMIT .)
+    :               reduce using rule 26 (fact -> EMIT .)
+    IF              reduce using rule 26 (fact -> EMIT .)
+    DO              reduce using rule 26 (fact -> EMIT .)
+    OPR             reduce using rule 26 (fact -> EMIT .)
+    INT             reduce using rule 26 (fact -> EMIT .)
+    WORD            reduce using rule 26 (fact -> EMIT .)
+    COMMENT         reduce using rule 26 (fact -> EMIT .)
+    .               reduce using rule 26 (fact -> EMIT .)
+    DOTQUOTE        reduce using rule 26 (fact -> EMIT .)
+    EMIT            reduce using rule 26 (fact -> EMIT .)
+    CHAR            reduce using rule 26 (fact -> EMIT .)
+    DUP             reduce using rule 26 (fact -> EMIT .)
+    CR              reduce using rule 26 (fact -> EMIT .)
+    SPACE           reduce using rule 26 (fact -> EMIT .)
+    SPACES          reduce using rule 26 (fact -> EMIT .)
+    SWAP            reduce using rule 26 (fact -> EMIT .)
+    KEY             reduce using rule 26 (fact -> EMIT .)
+    DEPTH           reduce using rule 26 (fact -> EMIT .)
+    DROP            reduce using rule 26 (fact -> EMIT .)
+    $end            reduce using rule 26 (fact -> EMIT .)
+    ELSE            reduce using rule 26 (fact -> EMIT .)
+    LOOP            reduce using rule 26 (fact -> EMIT .)
+    PLUSLOOP        reduce using rule 26 (fact -> EMIT .)
+    ;               reduce using rule 26 (fact -> EMIT .)
+    THEN            reduce using rule 26 (fact -> EMIT .)
 
 
 state 17
 
-    (26) fact -> CHAR .
+    (27) fact -> CHAR .
 
-    :               reduce using rule 26 (fact -> CHAR .)
-    IF              reduce using rule 26 (fact -> CHAR .)
-    OPR             reduce using rule 26 (fact -> CHAR .)
-    INT             reduce using rule 26 (fact -> CHAR .)
-    WORD            reduce using rule 26 (fact -> CHAR .)
-    COMMENT         reduce using rule 26 (fact -> CHAR .)
-    .               reduce using rule 26 (fact -> CHAR .)
-    DOTQUOTE        reduce using rule 26 (fact -> CHAR .)
-    EMIT            reduce using rule 26 (fact -> CHAR .)
-    CHAR            reduce using rule 26 (fact -> CHAR .)
-    DUP             reduce using rule 26 (fact -> CHAR .)
-    CR              reduce using rule 26 (fact -> CHAR .)
-    SPACE           reduce using rule 26 (fact -> CHAR .)
-    SPACES          reduce using rule 26 (fact -> CHAR .)
-    SWAP            reduce using rule 26 (fact -> CHAR .)
-    KEY             reduce using rule 26 (fact -> CHAR .)
-    DEPTH           reduce using rule 26 (fact -> CHAR .)
-    DROP            reduce using rule 26 (fact -> CHAR .)
-    $end            reduce using rule 26 (fact -> CHAR .)
-    ELSE            reduce using rule 26 (fact -> CHAR .)
-    LOOP            reduce using rule 26 (fact -> CHAR .)
-    PLUSLOOP        reduce using rule 26 (fact -> CHAR .)
-    ;               reduce using rule 26 (fact -> CHAR .)
-    THEN            reduce using rule 26 (fact -> CHAR .)
+    :               reduce using rule 27 (fact -> CHAR .)
+    IF              reduce using rule 27 (fact -> CHAR .)
+    DO              reduce using rule 27 (fact -> CHAR .)
+    OPR             reduce using rule 27 (fact -> CHAR .)
+    INT             reduce using rule 27 (fact -> CHAR .)
+    WORD            reduce using rule 27 (fact -> CHAR .)
+    COMMENT         reduce using rule 27 (fact -> CHAR .)
+    .               reduce using rule 27 (fact -> CHAR .)
+    DOTQUOTE        reduce using rule 27 (fact -> CHAR .)
+    EMIT            reduce using rule 27 (fact -> CHAR .)
+    CHAR            reduce using rule 27 (fact -> CHAR .)
+    DUP             reduce using rule 27 (fact -> CHAR .)
+    CR              reduce using rule 27 (fact -> CHAR .)
+    SPACE           reduce using rule 27 (fact -> CHAR .)
+    SPACES          reduce using rule 27 (fact -> CHAR .)
+    SWAP            reduce using rule 27 (fact -> CHAR .)
+    KEY             reduce using rule 27 (fact -> CHAR .)
+    DEPTH           reduce using rule 27 (fact -> CHAR .)
+    DROP            reduce using rule 27 (fact -> CHAR .)
+    $end            reduce using rule 27 (fact -> CHAR .)
+    ELSE            reduce using rule 27 (fact -> CHAR .)
+    LOOP            reduce using rule 27 (fact -> CHAR .)
+    PLUSLOOP        reduce using rule 27 (fact -> CHAR .)
+    ;               reduce using rule 27 (fact -> CHAR .)
+    THEN            reduce using rule 27 (fact -> CHAR .)
 
 
 state 18
 
-    (27) fact -> DUP .
+    (28) fact -> DUP .
 
-    :               reduce using rule 27 (fact -> DUP .)
-    IF              reduce using rule 27 (fact -> DUP .)
-    OPR             reduce using rule 27 (fact -> DUP .)
-    INT             reduce using rule 27 (fact -> DUP .)
-    WORD            reduce using rule 27 (fact -> DUP .)
-    COMMENT         reduce using rule 27 (fact -> DUP .)
-    .               reduce using rule 27 (fact -> DUP .)
-    DOTQUOTE        reduce using rule 27 (fact -> DUP .)
-    EMIT            reduce using rule 27 (fact -> DUP .)
-    CHAR            reduce using rule 27 (fact -> DUP .)
-    DUP             reduce using rule 27 (fact -> DUP .)
-    CR              reduce using rule 27 (fact -> DUP .)
-    SPACE           reduce using rule 27 (fact -> DUP .)
-    SPACES          reduce using rule 27 (fact -> DUP .)
-    SWAP            reduce using rule 27 (fact -> DUP .)
-    KEY             reduce using rule 27 (fact -> DUP .)
-    DEPTH           reduce using rule 27 (fact -> DUP .)
-    DROP            reduce using rule 27 (fact -> DUP .)
-    $end            reduce using rule 27 (fact -> DUP .)
-    ELSE            reduce using rule 27 (fact -> DUP .)
-    LOOP            reduce using rule 27 (fact -> DUP .)
-    PLUSLOOP        reduce using rule 27 (fact -> DUP .)
-    ;               reduce using rule 27 (fact -> DUP .)
-    THEN            reduce using rule 27 (fact -> DUP .)
+    :               reduce using rule 28 (fact -> DUP .)
+    IF              reduce using rule 28 (fact -> DUP .)
+    DO              reduce using rule 28 (fact -> DUP .)
+    OPR             reduce using rule 28 (fact -> DUP .)
+    INT             reduce using rule 28 (fact -> DUP .)
+    WORD            reduce using rule 28 (fact -> DUP .)
+    COMMENT         reduce using rule 28 (fact -> DUP .)
+    .               reduce using rule 28 (fact -> DUP .)
+    DOTQUOTE        reduce using rule 28 (fact -> DUP .)
+    EMIT            reduce using rule 28 (fact -> DUP .)
+    CHAR            reduce using rule 28 (fact -> DUP .)
+    DUP             reduce using rule 28 (fact -> DUP .)
+    CR              reduce using rule 28 (fact -> DUP .)
+    SPACE           reduce using rule 28 (fact -> DUP .)
+    SPACES          reduce using rule 28 (fact -> DUP .)
+    SWAP            reduce using rule 28 (fact -> DUP .)
+    KEY             reduce using rule 28 (fact -> DUP .)
+    DEPTH           reduce using rule 28 (fact -> DUP .)
+    DROP            reduce using rule 28 (fact -> DUP .)
+    $end            reduce using rule 28 (fact -> DUP .)
+    ELSE            reduce using rule 28 (fact -> DUP .)
+    LOOP            reduce using rule 28 (fact -> DUP .)
+    PLUSLOOP        reduce using rule 28 (fact -> DUP .)
+    ;               reduce using rule 28 (fact -> DUP .)
+    THEN            reduce using rule 28 (fact -> DUP .)
 
 
 state 19
 
-    (28) fact -> CR .
+    (29) fact -> CR .
 
-    :               reduce using rule 28 (fact -> CR .)
-    IF              reduce using rule 28 (fact -> CR .)
-    OPR             reduce using rule 28 (fact -> CR .)
-    INT             reduce using rule 28 (fact -> CR .)
-    WORD            reduce using rule 28 (fact -> CR .)
-    COMMENT         reduce using rule 28 (fact -> CR .)
-    .               reduce using rule 28 (fact -> CR .)
-    DOTQUOTE        reduce using rule 28 (fact -> CR .)
-    EMIT            reduce using rule 28 (fact -> CR .)
-    CHAR            reduce using rule 28 (fact -> CR .)
-    DUP             reduce using rule 28 (fact -> CR .)
-    CR              reduce using rule 28 (fact -> CR .)
-    SPACE           reduce using rule 28 (fact -> CR .)
-    SPACES          reduce using rule 28 (fact -> CR .)
-    SWAP            reduce using rule 28 (fact -> CR .)
-    KEY             reduce using rule 28 (fact -> CR .)
-    DEPTH           reduce using rule 28 (fact -> CR .)
-    DROP            reduce using rule 28 (fact -> CR .)
-    $end            reduce using rule 28 (fact -> CR .)
-    ELSE            reduce using rule 28 (fact -> CR .)
-    LOOP            reduce using rule 28 (fact -> CR .)
-    PLUSLOOP        reduce using rule 28 (fact -> CR .)
-    ;               reduce using rule 28 (fact -> CR .)
-    THEN            reduce using rule 28 (fact -> CR .)
+    :               reduce using rule 29 (fact -> CR .)
+    IF              reduce using rule 29 (fact -> CR .)
+    DO              reduce using rule 29 (fact -> CR .)
+    OPR             reduce using rule 29 (fact -> CR .)
+    INT             reduce using rule 29 (fact -> CR .)
+    WORD            reduce using rule 29 (fact -> CR .)
+    COMMENT         reduce using rule 29 (fact -> CR .)
+    .               reduce using rule 29 (fact -> CR .)
+    DOTQUOTE        reduce using rule 29 (fact -> CR .)
+    EMIT            reduce using rule 29 (fact -> CR .)
+    CHAR            reduce using rule 29 (fact -> CR .)
+    DUP             reduce using rule 29 (fact -> CR .)
+    CR              reduce using rule 29 (fact -> CR .)
+    SPACE           reduce using rule 29 (fact -> CR .)
+    SPACES          reduce using rule 29 (fact -> CR .)
+    SWAP            reduce using rule 29 (fact -> CR .)
+    KEY             reduce using rule 29 (fact -> CR .)
+    DEPTH           reduce using rule 29 (fact -> CR .)
+    DROP            reduce using rule 29 (fact -> CR .)
+    $end            reduce using rule 29 (fact -> CR .)
+    ELSE            reduce using rule 29 (fact -> CR .)
+    LOOP            reduce using rule 29 (fact -> CR .)
+    PLUSLOOP        reduce using rule 29 (fact -> CR .)
+    ;               reduce using rule 29 (fact -> CR .)
+    THEN            reduce using rule 29 (fact -> CR .)
 
 
 state 20
 
-    (29) fact -> SPACE .
+    (30) fact -> SPACE .
 
-    :               reduce using rule 29 (fact -> SPACE .)
-    IF              reduce using rule 29 (fact -> SPACE .)
-    OPR             reduce using rule 29 (fact -> SPACE .)
-    INT             reduce using rule 29 (fact -> SPACE .)
-    WORD            reduce using rule 29 (fact -> SPACE .)
-    COMMENT         reduce using rule 29 (fact -> SPACE .)
-    .               reduce using rule 29 (fact -> SPACE .)
-    DOTQUOTE        reduce using rule 29 (fact -> SPACE .)
-    EMIT            reduce using rule 29 (fact -> SPACE .)
-    CHAR            reduce using rule 29 (fact -> SPACE .)
-    DUP             reduce using rule 29 (fact -> SPACE .)
-    CR              reduce using rule 29 (fact -> SPACE .)
-    SPACE           reduce using rule 29 (fact -> SPACE .)
-    SPACES          reduce using rule 29 (fact -> SPACE .)
-    SWAP            reduce using rule 29 (fact -> SPACE .)
-    KEY             reduce using rule 29 (fact -> SPACE .)
-    DEPTH           reduce using rule 29 (fact -> SPACE .)
-    DROP            reduce using rule 29 (fact -> SPACE .)
-    $end            reduce using rule 29 (fact -> SPACE .)
-    ELSE            reduce using rule 29 (fact -> SPACE .)
-    LOOP            reduce using rule 29 (fact -> SPACE .)
-    PLUSLOOP        reduce using rule 29 (fact -> SPACE .)
-    ;               reduce using rule 29 (fact -> SPACE .)
-    THEN            reduce using rule 29 (fact -> SPACE .)
+    :               reduce using rule 30 (fact -> SPACE .)
+    IF              reduce using rule 30 (fact -> SPACE .)
+    DO              reduce using rule 30 (fact -> SPACE .)
+    OPR             reduce using rule 30 (fact -> SPACE .)
+    INT             reduce using rule 30 (fact -> SPACE .)
+    WORD            reduce using rule 30 (fact -> SPACE .)
+    COMMENT         reduce using rule 30 (fact -> SPACE .)
+    .               reduce using rule 30 (fact -> SPACE .)
+    DOTQUOTE        reduce using rule 30 (fact -> SPACE .)
+    EMIT            reduce using rule 30 (fact -> SPACE .)
+    CHAR            reduce using rule 30 (fact -> SPACE .)
+    DUP             reduce using rule 30 (fact -> SPACE .)
+    CR              reduce using rule 30 (fact -> SPACE .)
+    SPACE           reduce using rule 30 (fact -> SPACE .)
+    SPACES          reduce using rule 30 (fact -> SPACE .)
+    SWAP            reduce using rule 30 (fact -> SPACE .)
+    KEY             reduce using rule 30 (fact -> SPACE .)
+    DEPTH           reduce using rule 30 (fact -> SPACE .)
+    DROP            reduce using rule 30 (fact -> SPACE .)
+    $end            reduce using rule 30 (fact -> SPACE .)
+    ELSE            reduce using rule 30 (fact -> SPACE .)
+    LOOP            reduce using rule 30 (fact -> SPACE .)
+    PLUSLOOP        reduce using rule 30 (fact -> SPACE .)
+    ;               reduce using rule 30 (fact -> SPACE .)
+    THEN            reduce using rule 30 (fact -> SPACE .)
 
 
 state 21
 
-    (30) fact -> SPACES .
+    (31) fact -> SPACES .
 
-    :               reduce using rule 30 (fact -> SPACES .)
-    IF              reduce using rule 30 (fact -> SPACES .)
-    OPR             reduce using rule 30 (fact -> SPACES .)
-    INT             reduce using rule 30 (fact -> SPACES .)
-    WORD            reduce using rule 30 (fact -> SPACES .)
-    COMMENT         reduce using rule 30 (fact -> SPACES .)
-    .               reduce using rule 30 (fact -> SPACES .)
-    DOTQUOTE        reduce using rule 30 (fact -> SPACES .)
-    EMIT            reduce using rule 30 (fact -> SPACES .)
-    CHAR            reduce using rule 30 (fact -> SPACES .)
-    DUP             reduce using rule 30 (fact -> SPACES .)
-    CR              reduce using rule 30 (fact -> SPACES .)
-    SPACE           reduce using rule 30 (fact -> SPACES .)
-    SPACES          reduce using rule 30 (fact -> SPACES .)
-    SWAP            reduce using rule 30 (fact -> SPACES .)
-    KEY             reduce using rule 30 (fact -> SPACES .)
-    DEPTH           reduce using rule 30 (fact -> SPACES .)
-    DROP            reduce using rule 30 (fact -> SPACES .)
-    $end            reduce using rule 30 (fact -> SPACES .)
-    ELSE            reduce using rule 30 (fact -> SPACES .)
-    LOOP            reduce using rule 30 (fact -> SPACES .)
-    PLUSLOOP        reduce using rule 30 (fact -> SPACES .)
-    ;               reduce using rule 30 (fact -> SPACES .)
-    THEN            reduce using rule 30 (fact -> SPACES .)
+    :               reduce using rule 31 (fact -> SPACES .)
+    IF              reduce using rule 31 (fact -> SPACES .)
+    DO              reduce using rule 31 (fact -> SPACES .)
+    OPR             reduce using rule 31 (fact -> SPACES .)
+    INT             reduce using rule 31 (fact -> SPACES .)
+    WORD            reduce using rule 31 (fact -> SPACES .)
+    COMMENT         reduce using rule 31 (fact -> SPACES .)
+    .               reduce using rule 31 (fact -> SPACES .)
+    DOTQUOTE        reduce using rule 31 (fact -> SPACES .)
+    EMIT            reduce using rule 31 (fact -> SPACES .)
+    CHAR            reduce using rule 31 (fact -> SPACES .)
+    DUP             reduce using rule 31 (fact -> SPACES .)
+    CR              reduce using rule 31 (fact -> SPACES .)
+    SPACE           reduce using rule 31 (fact -> SPACES .)
+    SPACES          reduce using rule 31 (fact -> SPACES .)
+    SWAP            reduce using rule 31 (fact -> SPACES .)
+    KEY             reduce using rule 31 (fact -> SPACES .)
+    DEPTH           reduce using rule 31 (fact -> SPACES .)
+    DROP            reduce using rule 31 (fact -> SPACES .)
+    $end            reduce using rule 31 (fact -> SPACES .)
+    ELSE            reduce using rule 31 (fact -> SPACES .)
+    LOOP            reduce using rule 31 (fact -> SPACES .)
+    PLUSLOOP        reduce using rule 31 (fact -> SPACES .)
+    ;               reduce using rule 31 (fact -> SPACES .)
+    THEN            reduce using rule 31 (fact -> SPACES .)
 
 
 state 22
 
-    (31) fact -> SWAP .
+    (32) fact -> SWAP .
 
-    :               reduce using rule 31 (fact -> SWAP .)
-    IF              reduce using rule 31 (fact -> SWAP .)
-    OPR             reduce using rule 31 (fact -> SWAP .)
-    INT             reduce using rule 31 (fact -> SWAP .)
-    WORD            reduce using rule 31 (fact -> SWAP .)
-    COMMENT         reduce using rule 31 (fact -> SWAP .)
-    .               reduce using rule 31 (fact -> SWAP .)
-    DOTQUOTE        reduce using rule 31 (fact -> SWAP .)
-    EMIT            reduce using rule 31 (fact -> SWAP .)
-    CHAR            reduce using rule 31 (fact -> SWAP .)
-    DUP             reduce using rule 31 (fact -> SWAP .)
-    CR              reduce using rule 31 (fact -> SWAP .)
-    SPACE           reduce using rule 31 (fact -> SWAP .)
-    SPACES          reduce using rule 31 (fact -> SWAP .)
-    SWAP            reduce using rule 31 (fact -> SWAP .)
-    KEY             reduce using rule 31 (fact -> SWAP .)
-    DEPTH           reduce using rule 31 (fact -> SWAP .)
-    DROP            reduce using rule 31 (fact -> SWAP .)
-    $end            reduce using rule 31 (fact -> SWAP .)
-    ELSE            reduce using rule 31 (fact -> SWAP .)
-    LOOP            reduce using rule 31 (fact -> SWAP .)
-    PLUSLOOP        reduce using rule 31 (fact -> SWAP .)
-    ;               reduce using rule 31 (fact -> SWAP .)
-    THEN            reduce using rule 31 (fact -> SWAP .)
+    :               reduce using rule 32 (fact -> SWAP .)
+    IF              reduce using rule 32 (fact -> SWAP .)
+    DO              reduce using rule 32 (fact -> SWAP .)
+    OPR             reduce using rule 32 (fact -> SWAP .)
+    INT             reduce using rule 32 (fact -> SWAP .)
+    WORD            reduce using rule 32 (fact -> SWAP .)
+    COMMENT         reduce using rule 32 (fact -> SWAP .)
+    .               reduce using rule 32 (fact -> SWAP .)
+    DOTQUOTE        reduce using rule 32 (fact -> SWAP .)
+    EMIT            reduce using rule 32 (fact -> SWAP .)
+    CHAR            reduce using rule 32 (fact -> SWAP .)
+    DUP             reduce using rule 32 (fact -> SWAP .)
+    CR              reduce using rule 32 (fact -> SWAP .)
+    SPACE           reduce using rule 32 (fact -> SWAP .)
+    SPACES          reduce using rule 32 (fact -> SWAP .)
+    SWAP            reduce using rule 32 (fact -> SWAP .)
+    KEY             reduce using rule 32 (fact -> SWAP .)
+    DEPTH           reduce using rule 32 (fact -> SWAP .)
+    DROP            reduce using rule 32 (fact -> SWAP .)
+    $end            reduce using rule 32 (fact -> SWAP .)
+    ELSE            reduce using rule 32 (fact -> SWAP .)
+    LOOP            reduce using rule 32 (fact -> SWAP .)
+    PLUSLOOP        reduce using rule 32 (fact -> SWAP .)
+    ;               reduce using rule 32 (fact -> SWAP .)
+    THEN            reduce using rule 32 (fact -> SWAP .)
 
 
 state 23
 
-    (32) fact -> KEY .
+    (33) fact -> KEY .
 
-    :               reduce using rule 32 (fact -> KEY .)
-    IF              reduce using rule 32 (fact -> KEY .)
-    OPR             reduce using rule 32 (fact -> KEY .)
-    INT             reduce using rule 32 (fact -> KEY .)
-    WORD            reduce using rule 32 (fact -> KEY .)
-    COMMENT         reduce using rule 32 (fact -> KEY .)
-    .               reduce using rule 32 (fact -> KEY .)
-    DOTQUOTE        reduce using rule 32 (fact -> KEY .)
-    EMIT            reduce using rule 32 (fact -> KEY .)
-    CHAR            reduce using rule 32 (fact -> KEY .)
-    DUP             reduce using rule 32 (fact -> KEY .)
-    CR              reduce using rule 32 (fact -> KEY .)
-    SPACE           reduce using rule 32 (fact -> KEY .)
-    SPACES          reduce using rule 32 (fact -> KEY .)
-    SWAP            reduce using rule 32 (fact -> KEY .)
-    KEY             reduce using rule 32 (fact -> KEY .)
-    DEPTH           reduce using rule 32 (fact -> KEY .)
-    DROP            reduce using rule 32 (fact -> KEY .)
-    $end            reduce using rule 32 (fact -> KEY .)
-    ELSE            reduce using rule 32 (fact -> KEY .)
-    LOOP            reduce using rule 32 (fact -> KEY .)
-    PLUSLOOP        reduce using rule 32 (fact -> KEY .)
-    ;               reduce using rule 32 (fact -> KEY .)
-    THEN            reduce using rule 32 (fact -> KEY .)
+    :               reduce using rule 33 (fact -> KEY .)
+    IF              reduce using rule 33 (fact -> KEY .)
+    DO              reduce using rule 33 (fact -> KEY .)
+    OPR             reduce using rule 33 (fact -> KEY .)
+    INT             reduce using rule 33 (fact -> KEY .)
+    WORD            reduce using rule 33 (fact -> KEY .)
+    COMMENT         reduce using rule 33 (fact -> KEY .)
+    .               reduce using rule 33 (fact -> KEY .)
+    DOTQUOTE        reduce using rule 33 (fact -> KEY .)
+    EMIT            reduce using rule 33 (fact -> KEY .)
+    CHAR            reduce using rule 33 (fact -> KEY .)
+    DUP             reduce using rule 33 (fact -> KEY .)
+    CR              reduce using rule 33 (fact -> KEY .)
+    SPACE           reduce using rule 33 (fact -> KEY .)
+    SPACES          reduce using rule 33 (fact -> KEY .)
+    SWAP            reduce using rule 33 (fact -> KEY .)
+    KEY             reduce using rule 33 (fact -> KEY .)
+    DEPTH           reduce using rule 33 (fact -> KEY .)
+    DROP            reduce using rule 33 (fact -> KEY .)
+    $end            reduce using rule 33 (fact -> KEY .)
+    ELSE            reduce using rule 33 (fact -> KEY .)
+    LOOP            reduce using rule 33 (fact -> KEY .)
+    PLUSLOOP        reduce using rule 33 (fact -> KEY .)
+    ;               reduce using rule 33 (fact -> KEY .)
+    THEN            reduce using rule 33 (fact -> KEY .)
 
 
 state 24
 
-    (33) fact -> DEPTH .
+    (34) fact -> DEPTH .
 
-    :               reduce using rule 33 (fact -> DEPTH .)
-    IF              reduce using rule 33 (fact -> DEPTH .)
-    OPR             reduce using rule 33 (fact -> DEPTH .)
-    INT             reduce using rule 33 (fact -> DEPTH .)
-    WORD            reduce using rule 33 (fact -> DEPTH .)
-    COMMENT         reduce using rule 33 (fact -> DEPTH .)
-    .               reduce using rule 33 (fact -> DEPTH .)
-    DOTQUOTE        reduce using rule 33 (fact -> DEPTH .)
-    EMIT            reduce using rule 33 (fact -> DEPTH .)
-    CHAR            reduce using rule 33 (fact -> DEPTH .)
-    DUP             reduce using rule 33 (fact -> DEPTH .)
-    CR              reduce using rule 33 (fact -> DEPTH .)
-    SPACE           reduce using rule 33 (fact -> DEPTH .)
-    SPACES          reduce using rule 33 (fact -> DEPTH .)
-    SWAP            reduce using rule 33 (fact -> DEPTH .)
-    KEY             reduce using rule 33 (fact -> DEPTH .)
-    DEPTH           reduce using rule 33 (fact -> DEPTH .)
-    DROP            reduce using rule 33 (fact -> DEPTH .)
-    $end            reduce using rule 33 (fact -> DEPTH .)
-    ELSE            reduce using rule 33 (fact -> DEPTH .)
-    LOOP            reduce using rule 33 (fact -> DEPTH .)
-    PLUSLOOP        reduce using rule 33 (fact -> DEPTH .)
-    ;               reduce using rule 33 (fact -> DEPTH .)
-    THEN            reduce using rule 33 (fact -> DEPTH .)
+    :               reduce using rule 34 (fact -> DEPTH .)
+    IF              reduce using rule 34 (fact -> DEPTH .)
+    DO              reduce using rule 34 (fact -> DEPTH .)
+    OPR             reduce using rule 34 (fact -> DEPTH .)
+    INT             reduce using rule 34 (fact -> DEPTH .)
+    WORD            reduce using rule 34 (fact -> DEPTH .)
+    COMMENT         reduce using rule 34 (fact -> DEPTH .)
+    .               reduce using rule 34 (fact -> DEPTH .)
+    DOTQUOTE        reduce using rule 34 (fact -> DEPTH .)
+    EMIT            reduce using rule 34 (fact -> DEPTH .)
+    CHAR            reduce using rule 34 (fact -> DEPTH .)
+    DUP             reduce using rule 34 (fact -> DEPTH .)
+    CR              reduce using rule 34 (fact -> DEPTH .)
+    SPACE           reduce using rule 34 (fact -> DEPTH .)
+    SPACES          reduce using rule 34 (fact -> DEPTH .)
+    SWAP            reduce using rule 34 (fact -> DEPTH .)
+    KEY             reduce using rule 34 (fact -> DEPTH .)
+    DEPTH           reduce using rule 34 (fact -> DEPTH .)
+    DROP            reduce using rule 34 (fact -> DEPTH .)
+    $end            reduce using rule 34 (fact -> DEPTH .)
+    ELSE            reduce using rule 34 (fact -> DEPTH .)
+    LOOP            reduce using rule 34 (fact -> DEPTH .)
+    PLUSLOOP        reduce using rule 34 (fact -> DEPTH .)
+    ;               reduce using rule 34 (fact -> DEPTH .)
+    THEN            reduce using rule 34 (fact -> DEPTH .)
 
 
 state 25
 
-    (34) fact -> DROP .
+    (35) fact -> DROP .
 
-    :               reduce using rule 34 (fact -> DROP .)
-    IF              reduce using rule 34 (fact -> DROP .)
-    OPR             reduce using rule 34 (fact -> DROP .)
-    INT             reduce using rule 34 (fact -> DROP .)
-    WORD            reduce using rule 34 (fact -> DROP .)
-    COMMENT         reduce using rule 34 (fact -> DROP .)
-    .               reduce using rule 34 (fact -> DROP .)
-    DOTQUOTE        reduce using rule 34 (fact -> DROP .)
-    EMIT            reduce using rule 34 (fact -> DROP .)
-    CHAR            reduce using rule 34 (fact -> DROP .)
-    DUP             reduce using rule 34 (fact -> DROP .)
-    CR              reduce using rule 34 (fact -> DROP .)
-    SPACE           reduce using rule 34 (fact -> DROP .)
-    SPACES          reduce using rule 34 (fact -> DROP .)
-    SWAP            reduce using rule 34 (fact -> DROP .)
-    KEY             reduce using rule 34 (fact -> DROP .)
-    DEPTH           reduce using rule 34 (fact -> DROP .)
-    DROP            reduce using rule 34 (fact -> DROP .)
-    $end            reduce using rule 34 (fact -> DROP .)
-    ELSE            reduce using rule 34 (fact -> DROP .)
-    LOOP            reduce using rule 34 (fact -> DROP .)
-    PLUSLOOP        reduce using rule 34 (fact -> DROP .)
-    ;               reduce using rule 34 (fact -> DROP .)
-    THEN            reduce using rule 34 (fact -> DROP .)
+    :               reduce using rule 35 (fact -> DROP .)
+    IF              reduce using rule 35 (fact -> DROP .)
+    DO              reduce using rule 35 (fact -> DROP .)
+    OPR             reduce using rule 35 (fact -> DROP .)
+    INT             reduce using rule 35 (fact -> DROP .)
+    WORD            reduce using rule 35 (fact -> DROP .)
+    COMMENT         reduce using rule 35 (fact -> DROP .)
+    .               reduce using rule 35 (fact -> DROP .)
+    DOTQUOTE        reduce using rule 35 (fact -> DROP .)
+    EMIT            reduce using rule 35 (fact -> DROP .)
+    CHAR            reduce using rule 35 (fact -> DROP .)
+    DUP             reduce using rule 35 (fact -> DROP .)
+    CR              reduce using rule 35 (fact -> DROP .)
+    SPACE           reduce using rule 35 (fact -> DROP .)
+    SPACES          reduce using rule 35 (fact -> DROP .)
+    SWAP            reduce using rule 35 (fact -> DROP .)
+    KEY             reduce using rule 35 (fact -> DROP .)
+    DEPTH           reduce using rule 35 (fact -> DROP .)
+    DROP            reduce using rule 35 (fact -> DROP .)
+    $end            reduce using rule 35 (fact -> DROP .)
+    ELSE            reduce using rule 35 (fact -> DROP .)
+    LOOP            reduce using rule 35 (fact -> DROP .)
+    PLUSLOOP        reduce using rule 35 (fact -> DROP .)
+    ;               reduce using rule 35 (fact -> DROP .)
+    THEN            reduce using rule 35 (fact -> DROP .)
 
 
 state 26
@@ -980,6 +1012,7 @@ state 26
 
     :               reduce using rule 5 (exp -> exp term .)
     IF              reduce using rule 5 (exp -> exp term .)
+    DO              reduce using rule 5 (exp -> exp term .)
     OPR             reduce using rule 5 (exp -> exp term .)
     INT             reduce using rule 5 (exp -> exp term .)
     WORD            reduce using rule 5 (exp -> exp term .)
@@ -1010,6 +1043,7 @@ state 27
 
     :               reduce using rule 6 (exp -> exp function .)
     IF              reduce using rule 6 (exp -> exp function .)
+    DO              reduce using rule 6 (exp -> exp function .)
     OPR             reduce using rule 6 (exp -> exp function .)
     INT             reduce using rule 6 (exp -> exp function .)
     WORD            reduce using rule 6 (exp -> exp function .)
@@ -1040,6 +1074,7 @@ state 28
 
     :               reduce using rule 7 (exp -> exp conditional .)
     IF              reduce using rule 7 (exp -> exp conditional .)
+    DO              reduce using rule 7 (exp -> exp conditional .)
     OPR             reduce using rule 7 (exp -> exp conditional .)
     INT             reduce using rule 7 (exp -> exp conditional .)
     WORD            reduce using rule 7 (exp -> exp conditional .)
@@ -1066,75 +1101,39 @@ state 28
 
 state 29
 
-    (9) function -> : NAME . ;
-    (10) function -> : NAME . exp ;
-    (1) exp -> . term
-    (2) exp -> . function
-    (3) exp -> . conditional
-    (4) exp -> . loop
-    (5) exp -> . exp term
-    (6) exp -> . exp function
-    (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> exp loop .
 
-    ;               shift and go to state 35
-    :               shift and go to state 7
-    IF              shift and go to state 8
-    DO              shift and go to state 9
-    OPR             shift and go to state 10
-    INT             shift and go to state 11
-    WORD            shift and go to state 12
-    COMMENT         shift and go to state 13
-    .               shift and go to state 14
-    DOTQUOTE        shift and go to state 15
-    EMIT            shift and go to state 16
-    CHAR            shift and go to state 17
-    DUP             shift and go to state 18
-    CR              shift and go to state 19
-    SPACE           shift and go to state 20
-    SPACES          shift and go to state 21
-    SWAP            shift and go to state 22
-    KEY             shift and go to state 23
-    DEPTH           shift and go to state 24
-    DROP            shift and go to state 25
+    :               reduce using rule 8 (exp -> exp loop .)
+    IF              reduce using rule 8 (exp -> exp loop .)
+    DO              reduce using rule 8 (exp -> exp loop .)
+    OPR             reduce using rule 8 (exp -> exp loop .)
+    INT             reduce using rule 8 (exp -> exp loop .)
+    WORD            reduce using rule 8 (exp -> exp loop .)
+    COMMENT         reduce using rule 8 (exp -> exp loop .)
+    .               reduce using rule 8 (exp -> exp loop .)
+    DOTQUOTE        reduce using rule 8 (exp -> exp loop .)
+    EMIT            reduce using rule 8 (exp -> exp loop .)
+    CHAR            reduce using rule 8 (exp -> exp loop .)
+    DUP             reduce using rule 8 (exp -> exp loop .)
+    CR              reduce using rule 8 (exp -> exp loop .)
+    SPACE           reduce using rule 8 (exp -> exp loop .)
+    SPACES          reduce using rule 8 (exp -> exp loop .)
+    SWAP            reduce using rule 8 (exp -> exp loop .)
+    KEY             reduce using rule 8 (exp -> exp loop .)
+    DEPTH           reduce using rule 8 (exp -> exp loop .)
+    DROP            reduce using rule 8 (exp -> exp loop .)
+    $end            reduce using rule 8 (exp -> exp loop .)
+    ELSE            reduce using rule 8 (exp -> exp loop .)
+    LOOP            reduce using rule 8 (exp -> exp loop .)
+    PLUSLOOP        reduce using rule 8 (exp -> exp loop .)
+    ;               reduce using rule 8 (exp -> exp loop .)
+    THEN            reduce using rule 8 (exp -> exp loop .)
 
-    exp                            shift and go to state 36
-    term                           shift and go to state 2
-    function                       shift and go to state 3
-    conditional                    shift and go to state 4
-    loop                           shift and go to state 5
-    fact                           shift and go to state 6
 
 state 30
 
-    (11) conditional -> IF ELSE . THEN
-    (13) conditional -> IF ELSE . exp THEN
+    (10) function -> : NAME . ;
+    (11) function -> : NAME . exp ;
     (1) exp -> . term
     (2) exp -> . function
     (3) exp -> . conditional
@@ -1142,35 +1141,36 @@ state 30
     (5) exp -> . exp term
     (6) exp -> . exp function
     (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    THEN            shift and go to state 37
+    ;               shift and go to state 36
     :               shift and go to state 7
     IF              shift and go to state 8
     DO              shift and go to state 9
@@ -1191,7 +1191,7 @@ state 30
     DEPTH           shift and go to state 24
     DROP            shift and go to state 25
 
-    exp                            shift and go to state 38
+    exp                            shift and go to state 37
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
@@ -1200,351 +1200,8 @@ state 30
 
 state 31
 
-    (12) conditional -> IF exp . ELSE THEN
-    (14) conditional -> IF exp . ELSE exp THEN
-    (5) exp -> exp . term
-    (6) exp -> exp . function
-    (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
-
-    ELSE            shift and go to state 39
-    :               shift and go to state 7
-    IF              shift and go to state 8
-    OPR             shift and go to state 10
-    INT             shift and go to state 11
-    WORD            shift and go to state 12
-    COMMENT         shift and go to state 13
-    .               shift and go to state 14
-    DOTQUOTE        shift and go to state 15
-    EMIT            shift and go to state 16
-    CHAR            shift and go to state 17
-    DUP             shift and go to state 18
-    CR              shift and go to state 19
-    SPACE           shift and go to state 20
-    SPACES          shift and go to state 21
-    SWAP            shift and go to state 22
-    KEY             shift and go to state 23
-    DEPTH           shift and go to state 24
-    DROP            shift and go to state 25
-
-    term                           shift and go to state 26
-    function                       shift and go to state 27
-    conditional                    shift and go to state 28
-    fact                           shift and go to state 6
-
-state 32
-
-    (15) loop -> DO LOOP .
-
-    :               reduce using rule 15 (loop -> DO LOOP .)
-    IF              reduce using rule 15 (loop -> DO LOOP .)
-    OPR             reduce using rule 15 (loop -> DO LOOP .)
-    INT             reduce using rule 15 (loop -> DO LOOP .)
-    WORD            reduce using rule 15 (loop -> DO LOOP .)
-    COMMENT         reduce using rule 15 (loop -> DO LOOP .)
-    .               reduce using rule 15 (loop -> DO LOOP .)
-    DOTQUOTE        reduce using rule 15 (loop -> DO LOOP .)
-    EMIT            reduce using rule 15 (loop -> DO LOOP .)
-    CHAR            reduce using rule 15 (loop -> DO LOOP .)
-    DUP             reduce using rule 15 (loop -> DO LOOP .)
-    CR              reduce using rule 15 (loop -> DO LOOP .)
-    SPACE           reduce using rule 15 (loop -> DO LOOP .)
-    SPACES          reduce using rule 15 (loop -> DO LOOP .)
-    SWAP            reduce using rule 15 (loop -> DO LOOP .)
-    KEY             reduce using rule 15 (loop -> DO LOOP .)
-    DEPTH           reduce using rule 15 (loop -> DO LOOP .)
-    DROP            reduce using rule 15 (loop -> DO LOOP .)
-    $end            reduce using rule 15 (loop -> DO LOOP .)
-    ELSE            reduce using rule 15 (loop -> DO LOOP .)
-    LOOP            reduce using rule 15 (loop -> DO LOOP .)
-    PLUSLOOP        reduce using rule 15 (loop -> DO LOOP .)
-    ;               reduce using rule 15 (loop -> DO LOOP .)
-    THEN            reduce using rule 15 (loop -> DO LOOP .)
-
-
-state 33
-
-    (16) loop -> DO exp . LOOP
-    (18) loop -> DO exp . PLUSLOOP
-    (5) exp -> exp . term
-    (6) exp -> exp . function
-    (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
-
-    LOOP            shift and go to state 40
-    PLUSLOOP        shift and go to state 41
-    :               shift and go to state 7
-    IF              shift and go to state 8
-    OPR             shift and go to state 10
-    INT             shift and go to state 11
-    WORD            shift and go to state 12
-    COMMENT         shift and go to state 13
-    .               shift and go to state 14
-    DOTQUOTE        shift and go to state 15
-    EMIT            shift and go to state 16
-    CHAR            shift and go to state 17
-    DUP             shift and go to state 18
-    CR              shift and go to state 19
-    SPACE           shift and go to state 20
-    SPACES          shift and go to state 21
-    SWAP            shift and go to state 22
-    KEY             shift and go to state 23
-    DEPTH           shift and go to state 24
-    DROP            shift and go to state 25
-
-    term                           shift and go to state 26
-    function                       shift and go to state 27
-    conditional                    shift and go to state 28
-    fact                           shift and go to state 6
-
-state 34
-
-    (17) loop -> DO PLUSLOOP .
-
-    :               reduce using rule 17 (loop -> DO PLUSLOOP .)
-    IF              reduce using rule 17 (loop -> DO PLUSLOOP .)
-    OPR             reduce using rule 17 (loop -> DO PLUSLOOP .)
-    INT             reduce using rule 17 (loop -> DO PLUSLOOP .)
-    WORD            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    COMMENT         reduce using rule 17 (loop -> DO PLUSLOOP .)
-    .               reduce using rule 17 (loop -> DO PLUSLOOP .)
-    DOTQUOTE        reduce using rule 17 (loop -> DO PLUSLOOP .)
-    EMIT            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    CHAR            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    DUP             reduce using rule 17 (loop -> DO PLUSLOOP .)
-    CR              reduce using rule 17 (loop -> DO PLUSLOOP .)
-    SPACE           reduce using rule 17 (loop -> DO PLUSLOOP .)
-    SPACES          reduce using rule 17 (loop -> DO PLUSLOOP .)
-    SWAP            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    KEY             reduce using rule 17 (loop -> DO PLUSLOOP .)
-    DEPTH           reduce using rule 17 (loop -> DO PLUSLOOP .)
-    DROP            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    $end            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    ELSE            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    LOOP            reduce using rule 17 (loop -> DO PLUSLOOP .)
-    PLUSLOOP        reduce using rule 17 (loop -> DO PLUSLOOP .)
-    ;               reduce using rule 17 (loop -> DO PLUSLOOP .)
-    THEN            reduce using rule 17 (loop -> DO PLUSLOOP .)
-
-
-state 35
-
-    (9) function -> : NAME ; .
-
-    :               reduce using rule 9 (function -> : NAME ; .)
-    IF              reduce using rule 9 (function -> : NAME ; .)
-    OPR             reduce using rule 9 (function -> : NAME ; .)
-    INT             reduce using rule 9 (function -> : NAME ; .)
-    WORD            reduce using rule 9 (function -> : NAME ; .)
-    COMMENT         reduce using rule 9 (function -> : NAME ; .)
-    .               reduce using rule 9 (function -> : NAME ; .)
-    DOTQUOTE        reduce using rule 9 (function -> : NAME ; .)
-    EMIT            reduce using rule 9 (function -> : NAME ; .)
-    CHAR            reduce using rule 9 (function -> : NAME ; .)
-    DUP             reduce using rule 9 (function -> : NAME ; .)
-    CR              reduce using rule 9 (function -> : NAME ; .)
-    SPACE           reduce using rule 9 (function -> : NAME ; .)
-    SPACES          reduce using rule 9 (function -> : NAME ; .)
-    SWAP            reduce using rule 9 (function -> : NAME ; .)
-    KEY             reduce using rule 9 (function -> : NAME ; .)
-    DEPTH           reduce using rule 9 (function -> : NAME ; .)
-    DROP            reduce using rule 9 (function -> : NAME ; .)
-    $end            reduce using rule 9 (function -> : NAME ; .)
-    ELSE            reduce using rule 9 (function -> : NAME ; .)
-    LOOP            reduce using rule 9 (function -> : NAME ; .)
-    PLUSLOOP        reduce using rule 9 (function -> : NAME ; .)
-    ;               reduce using rule 9 (function -> : NAME ; .)
-    THEN            reduce using rule 9 (function -> : NAME ; .)
-
-
-state 36
-
-    (10) function -> : NAME exp . ;
-    (5) exp -> exp . term
-    (6) exp -> exp . function
-    (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
-
-    ;               shift and go to state 42
-    :               shift and go to state 7
-    IF              shift and go to state 8
-    OPR             shift and go to state 10
-    INT             shift and go to state 11
-    WORD            shift and go to state 12
-    COMMENT         shift and go to state 13
-    .               shift and go to state 14
-    DOTQUOTE        shift and go to state 15
-    EMIT            shift and go to state 16
-    CHAR            shift and go to state 17
-    DUP             shift and go to state 18
-    CR              shift and go to state 19
-    SPACE           shift and go to state 20
-    SPACES          shift and go to state 21
-    SWAP            shift and go to state 22
-    KEY             shift and go to state 23
-    DEPTH           shift and go to state 24
-    DROP            shift and go to state 25
-
-    term                           shift and go to state 26
-    function                       shift and go to state 27
-    conditional                    shift and go to state 28
-    fact                           shift and go to state 6
-
-state 37
-
-    (11) conditional -> IF ELSE THEN .
-
-    :               reduce using rule 11 (conditional -> IF ELSE THEN .)
-    IF              reduce using rule 11 (conditional -> IF ELSE THEN .)
-    OPR             reduce using rule 11 (conditional -> IF ELSE THEN .)
-    INT             reduce using rule 11 (conditional -> IF ELSE THEN .)
-    WORD            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    COMMENT         reduce using rule 11 (conditional -> IF ELSE THEN .)
-    .               reduce using rule 11 (conditional -> IF ELSE THEN .)
-    DOTQUOTE        reduce using rule 11 (conditional -> IF ELSE THEN .)
-    EMIT            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    CHAR            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    DUP             reduce using rule 11 (conditional -> IF ELSE THEN .)
-    CR              reduce using rule 11 (conditional -> IF ELSE THEN .)
-    SPACE           reduce using rule 11 (conditional -> IF ELSE THEN .)
-    SPACES          reduce using rule 11 (conditional -> IF ELSE THEN .)
-    SWAP            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    KEY             reduce using rule 11 (conditional -> IF ELSE THEN .)
-    DEPTH           reduce using rule 11 (conditional -> IF ELSE THEN .)
-    DROP            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    $end            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    ELSE            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    LOOP            reduce using rule 11 (conditional -> IF ELSE THEN .)
-    PLUSLOOP        reduce using rule 11 (conditional -> IF ELSE THEN .)
-    ;               reduce using rule 11 (conditional -> IF ELSE THEN .)
-    THEN            reduce using rule 11 (conditional -> IF ELSE THEN .)
-
-
-state 38
-
-    (13) conditional -> IF ELSE exp . THEN
-    (5) exp -> exp . term
-    (6) exp -> exp . function
-    (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
-
-    THEN            shift and go to state 43
-    :               shift and go to state 7
-    IF              shift and go to state 8
-    OPR             shift and go to state 10
-    INT             shift and go to state 11
-    WORD            shift and go to state 12
-    COMMENT         shift and go to state 13
-    .               shift and go to state 14
-    DOTQUOTE        shift and go to state 15
-    EMIT            shift and go to state 16
-    CHAR            shift and go to state 17
-    DUP             shift and go to state 18
-    CR              shift and go to state 19
-    SPACE           shift and go to state 20
-    SPACES          shift and go to state 21
-    SWAP            shift and go to state 22
-    KEY             shift and go to state 23
-    DEPTH           shift and go to state 24
-    DROP            shift and go to state 25
-
-    term                           shift and go to state 26
-    function                       shift and go to state 27
-    conditional                    shift and go to state 28
-    fact                           shift and go to state 6
-
-state 39
-
-    (12) conditional -> IF exp ELSE . THEN
-    (14) conditional -> IF exp ELSE . exp THEN
+    (12) conditional -> IF ELSE . THEN
+    (14) conditional -> IF ELSE . exp THEN
     (1) exp -> . term
     (2) exp -> . function
     (3) exp -> . conditional
@@ -1552,35 +1209,36 @@ state 39
     (5) exp -> . exp term
     (6) exp -> . exp function
     (7) exp -> . exp conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (15) loop -> . DO LOOP
-    (16) loop -> . DO exp LOOP
-    (17) loop -> . DO PLUSLOOP
-    (18) loop -> . DO exp PLUSLOOP
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    THEN            shift and go to state 45
+    THEN            shift and go to state 38
     :               shift and go to state 7
     IF              shift and go to state 8
     DO              shift and go to state 9
@@ -1601,166 +1259,53 @@ state 39
     DEPTH           shift and go to state 24
     DROP            shift and go to state 25
 
-    exp                            shift and go to state 44
+    exp                            shift and go to state 39
     term                           shift and go to state 2
     function                       shift and go to state 3
     conditional                    shift and go to state 4
     loop                           shift and go to state 5
     fact                           shift and go to state 6
 
-state 40
+state 32
 
-    (16) loop -> DO exp LOOP .
-
-    :               reduce using rule 16 (loop -> DO exp LOOP .)
-    IF              reduce using rule 16 (loop -> DO exp LOOP .)
-    OPR             reduce using rule 16 (loop -> DO exp LOOP .)
-    INT             reduce using rule 16 (loop -> DO exp LOOP .)
-    WORD            reduce using rule 16 (loop -> DO exp LOOP .)
-    COMMENT         reduce using rule 16 (loop -> DO exp LOOP .)
-    .               reduce using rule 16 (loop -> DO exp LOOP .)
-    DOTQUOTE        reduce using rule 16 (loop -> DO exp LOOP .)
-    EMIT            reduce using rule 16 (loop -> DO exp LOOP .)
-    CHAR            reduce using rule 16 (loop -> DO exp LOOP .)
-    DUP             reduce using rule 16 (loop -> DO exp LOOP .)
-    CR              reduce using rule 16 (loop -> DO exp LOOP .)
-    SPACE           reduce using rule 16 (loop -> DO exp LOOP .)
-    SPACES          reduce using rule 16 (loop -> DO exp LOOP .)
-    SWAP            reduce using rule 16 (loop -> DO exp LOOP .)
-    KEY             reduce using rule 16 (loop -> DO exp LOOP .)
-    DEPTH           reduce using rule 16 (loop -> DO exp LOOP .)
-    DROP            reduce using rule 16 (loop -> DO exp LOOP .)
-    $end            reduce using rule 16 (loop -> DO exp LOOP .)
-    ELSE            reduce using rule 16 (loop -> DO exp LOOP .)
-    LOOP            reduce using rule 16 (loop -> DO exp LOOP .)
-    PLUSLOOP        reduce using rule 16 (loop -> DO exp LOOP .)
-    ;               reduce using rule 16 (loop -> DO exp LOOP .)
-    THEN            reduce using rule 16 (loop -> DO exp LOOP .)
-
-
-state 41
-
-    (18) loop -> DO exp PLUSLOOP .
-
-    :               reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    IF              reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    OPR             reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    INT             reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    WORD            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    COMMENT         reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    .               reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    DOTQUOTE        reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    EMIT            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    CHAR            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    DUP             reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    CR              reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    SPACE           reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    SPACES          reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    SWAP            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    KEY             reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    DEPTH           reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    DROP            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    $end            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    ELSE            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    LOOP            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    PLUSLOOP        reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    ;               reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-    THEN            reduce using rule 18 (loop -> DO exp PLUSLOOP .)
-
-
-state 42
-
-    (10) function -> : NAME exp ; .
-
-    :               reduce using rule 10 (function -> : NAME exp ; .)
-    IF              reduce using rule 10 (function -> : NAME exp ; .)
-    OPR             reduce using rule 10 (function -> : NAME exp ; .)
-    INT             reduce using rule 10 (function -> : NAME exp ; .)
-    WORD            reduce using rule 10 (function -> : NAME exp ; .)
-    COMMENT         reduce using rule 10 (function -> : NAME exp ; .)
-    .               reduce using rule 10 (function -> : NAME exp ; .)
-    DOTQUOTE        reduce using rule 10 (function -> : NAME exp ; .)
-    EMIT            reduce using rule 10 (function -> : NAME exp ; .)
-    CHAR            reduce using rule 10 (function -> : NAME exp ; .)
-    DUP             reduce using rule 10 (function -> : NAME exp ; .)
-    CR              reduce using rule 10 (function -> : NAME exp ; .)
-    SPACE           reduce using rule 10 (function -> : NAME exp ; .)
-    SPACES          reduce using rule 10 (function -> : NAME exp ; .)
-    SWAP            reduce using rule 10 (function -> : NAME exp ; .)
-    KEY             reduce using rule 10 (function -> : NAME exp ; .)
-    DEPTH           reduce using rule 10 (function -> : NAME exp ; .)
-    DROP            reduce using rule 10 (function -> : NAME exp ; .)
-    $end            reduce using rule 10 (function -> : NAME exp ; .)
-    ELSE            reduce using rule 10 (function -> : NAME exp ; .)
-    LOOP            reduce using rule 10 (function -> : NAME exp ; .)
-    PLUSLOOP        reduce using rule 10 (function -> : NAME exp ; .)
-    ;               reduce using rule 10 (function -> : NAME exp ; .)
-    THEN            reduce using rule 10 (function -> : NAME exp ; .)
-
-
-state 43
-
-    (13) conditional -> IF ELSE exp THEN .
-
-    :               reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    IF              reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    OPR             reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    INT             reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    WORD            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    COMMENT         reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    .               reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    DOTQUOTE        reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    EMIT            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    CHAR            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    DUP             reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    CR              reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    SPACE           reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    SPACES          reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    SWAP            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    KEY             reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    DEPTH           reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    DROP            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    $end            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    ELSE            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    LOOP            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    PLUSLOOP        reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    ;               reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-    THEN            reduce using rule 13 (conditional -> IF ELSE exp THEN .)
-
-
-state 44
-
-    (14) conditional -> IF exp ELSE exp . THEN
+    (13) conditional -> IF exp . ELSE THEN
+    (15) conditional -> IF exp . ELSE exp THEN
     (5) exp -> exp . term
     (6) exp -> exp . function
     (7) exp -> exp . conditional
-    (8) term -> . fact
-    (9) function -> . : NAME ;
-    (10) function -> . : NAME exp ;
-    (11) conditional -> . IF ELSE THEN
-    (12) conditional -> . IF exp ELSE THEN
-    (13) conditional -> . IF ELSE exp THEN
-    (14) conditional -> . IF exp ELSE exp THEN
-    (19) fact -> . OPR
-    (20) fact -> . INT
-    (21) fact -> . WORD
-    (22) fact -> . COMMENT
-    (23) fact -> . .
-    (24) fact -> . DOTQUOTE
-    (25) fact -> . EMIT
-    (26) fact -> . CHAR
-    (27) fact -> . DUP
-    (28) fact -> . CR
-    (29) fact -> . SPACE
-    (30) fact -> . SPACES
-    (31) fact -> . SWAP
-    (32) fact -> . KEY
-    (33) fact -> . DEPTH
-    (34) fact -> . DROP
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    THEN            shift and go to state 46
+    ELSE            shift and go to state 40
     :               shift and go to state 7
     IF              shift and go to state 8
+    DO              shift and go to state 9
     OPR             shift and go to state 10
     INT             shift and go to state 11
     WORD            shift and go to state 12
@@ -1781,64 +1326,633 @@ state 44
     term                           shift and go to state 26
     function                       shift and go to state 27
     conditional                    shift and go to state 28
+    loop                           shift and go to state 29
     fact                           shift and go to state 6
+
+state 33
+
+    (16) loop -> DO LOOP .
+
+    :               reduce using rule 16 (loop -> DO LOOP .)
+    IF              reduce using rule 16 (loop -> DO LOOP .)
+    DO              reduce using rule 16 (loop -> DO LOOP .)
+    OPR             reduce using rule 16 (loop -> DO LOOP .)
+    INT             reduce using rule 16 (loop -> DO LOOP .)
+    WORD            reduce using rule 16 (loop -> DO LOOP .)
+    COMMENT         reduce using rule 16 (loop -> DO LOOP .)
+    .               reduce using rule 16 (loop -> DO LOOP .)
+    DOTQUOTE        reduce using rule 16 (loop -> DO LOOP .)
+    EMIT            reduce using rule 16 (loop -> DO LOOP .)
+    CHAR            reduce using rule 16 (loop -> DO LOOP .)
+    DUP             reduce using rule 16 (loop -> DO LOOP .)
+    CR              reduce using rule 16 (loop -> DO LOOP .)
+    SPACE           reduce using rule 16 (loop -> DO LOOP .)
+    SPACES          reduce using rule 16 (loop -> DO LOOP .)
+    SWAP            reduce using rule 16 (loop -> DO LOOP .)
+    KEY             reduce using rule 16 (loop -> DO LOOP .)
+    DEPTH           reduce using rule 16 (loop -> DO LOOP .)
+    DROP            reduce using rule 16 (loop -> DO LOOP .)
+    $end            reduce using rule 16 (loop -> DO LOOP .)
+    ELSE            reduce using rule 16 (loop -> DO LOOP .)
+    LOOP            reduce using rule 16 (loop -> DO LOOP .)
+    PLUSLOOP        reduce using rule 16 (loop -> DO LOOP .)
+    ;               reduce using rule 16 (loop -> DO LOOP .)
+    THEN            reduce using rule 16 (loop -> DO LOOP .)
+
+
+state 34
+
+    (17) loop -> DO exp . LOOP
+    (19) loop -> DO exp . PLUSLOOP
+    (5) exp -> exp . term
+    (6) exp -> exp . function
+    (7) exp -> exp . conditional
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
+
+    LOOP            shift and go to state 41
+    PLUSLOOP        shift and go to state 42
+    :               shift and go to state 7
+    IF              shift and go to state 8
+    DO              shift and go to state 9
+    OPR             shift and go to state 10
+    INT             shift and go to state 11
+    WORD            shift and go to state 12
+    COMMENT         shift and go to state 13
+    .               shift and go to state 14
+    DOTQUOTE        shift and go to state 15
+    EMIT            shift and go to state 16
+    CHAR            shift and go to state 17
+    DUP             shift and go to state 18
+    CR              shift and go to state 19
+    SPACE           shift and go to state 20
+    SPACES          shift and go to state 21
+    SWAP            shift and go to state 22
+    KEY             shift and go to state 23
+    DEPTH           shift and go to state 24
+    DROP            shift and go to state 25
+
+    term                           shift and go to state 26
+    function                       shift and go to state 27
+    conditional                    shift and go to state 28
+    loop                           shift and go to state 29
+    fact                           shift and go to state 6
+
+state 35
+
+    (18) loop -> DO PLUSLOOP .
+
+    :               reduce using rule 18 (loop -> DO PLUSLOOP .)
+    IF              reduce using rule 18 (loop -> DO PLUSLOOP .)
+    DO              reduce using rule 18 (loop -> DO PLUSLOOP .)
+    OPR             reduce using rule 18 (loop -> DO PLUSLOOP .)
+    INT             reduce using rule 18 (loop -> DO PLUSLOOP .)
+    WORD            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    COMMENT         reduce using rule 18 (loop -> DO PLUSLOOP .)
+    .               reduce using rule 18 (loop -> DO PLUSLOOP .)
+    DOTQUOTE        reduce using rule 18 (loop -> DO PLUSLOOP .)
+    EMIT            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    CHAR            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    DUP             reduce using rule 18 (loop -> DO PLUSLOOP .)
+    CR              reduce using rule 18 (loop -> DO PLUSLOOP .)
+    SPACE           reduce using rule 18 (loop -> DO PLUSLOOP .)
+    SPACES          reduce using rule 18 (loop -> DO PLUSLOOP .)
+    SWAP            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    KEY             reduce using rule 18 (loop -> DO PLUSLOOP .)
+    DEPTH           reduce using rule 18 (loop -> DO PLUSLOOP .)
+    DROP            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    $end            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    ELSE            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    LOOP            reduce using rule 18 (loop -> DO PLUSLOOP .)
+    PLUSLOOP        reduce using rule 18 (loop -> DO PLUSLOOP .)
+    ;               reduce using rule 18 (loop -> DO PLUSLOOP .)
+    THEN            reduce using rule 18 (loop -> DO PLUSLOOP .)
+
+
+state 36
+
+    (10) function -> : NAME ; .
+
+    :               reduce using rule 10 (function -> : NAME ; .)
+    IF              reduce using rule 10 (function -> : NAME ; .)
+    DO              reduce using rule 10 (function -> : NAME ; .)
+    OPR             reduce using rule 10 (function -> : NAME ; .)
+    INT             reduce using rule 10 (function -> : NAME ; .)
+    WORD            reduce using rule 10 (function -> : NAME ; .)
+    COMMENT         reduce using rule 10 (function -> : NAME ; .)
+    .               reduce using rule 10 (function -> : NAME ; .)
+    DOTQUOTE        reduce using rule 10 (function -> : NAME ; .)
+    EMIT            reduce using rule 10 (function -> : NAME ; .)
+    CHAR            reduce using rule 10 (function -> : NAME ; .)
+    DUP             reduce using rule 10 (function -> : NAME ; .)
+    CR              reduce using rule 10 (function -> : NAME ; .)
+    SPACE           reduce using rule 10 (function -> : NAME ; .)
+    SPACES          reduce using rule 10 (function -> : NAME ; .)
+    SWAP            reduce using rule 10 (function -> : NAME ; .)
+    KEY             reduce using rule 10 (function -> : NAME ; .)
+    DEPTH           reduce using rule 10 (function -> : NAME ; .)
+    DROP            reduce using rule 10 (function -> : NAME ; .)
+    $end            reduce using rule 10 (function -> : NAME ; .)
+    ELSE            reduce using rule 10 (function -> : NAME ; .)
+    LOOP            reduce using rule 10 (function -> : NAME ; .)
+    PLUSLOOP        reduce using rule 10 (function -> : NAME ; .)
+    ;               reduce using rule 10 (function -> : NAME ; .)
+    THEN            reduce using rule 10 (function -> : NAME ; .)
+
+
+state 37
+
+    (11) function -> : NAME exp . ;
+    (5) exp -> exp . term
+    (6) exp -> exp . function
+    (7) exp -> exp . conditional
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
+
+    ;               shift and go to state 43
+    :               shift and go to state 7
+    IF              shift and go to state 8
+    DO              shift and go to state 9
+    OPR             shift and go to state 10
+    INT             shift and go to state 11
+    WORD            shift and go to state 12
+    COMMENT         shift and go to state 13
+    .               shift and go to state 14
+    DOTQUOTE        shift and go to state 15
+    EMIT            shift and go to state 16
+    CHAR            shift and go to state 17
+    DUP             shift and go to state 18
+    CR              shift and go to state 19
+    SPACE           shift and go to state 20
+    SPACES          shift and go to state 21
+    SWAP            shift and go to state 22
+    KEY             shift and go to state 23
+    DEPTH           shift and go to state 24
+    DROP            shift and go to state 25
+
+    term                           shift and go to state 26
+    function                       shift and go to state 27
+    conditional                    shift and go to state 28
+    loop                           shift and go to state 29
+    fact                           shift and go to state 6
+
+state 38
+
+    (12) conditional -> IF ELSE THEN .
+
+    :               reduce using rule 12 (conditional -> IF ELSE THEN .)
+    IF              reduce using rule 12 (conditional -> IF ELSE THEN .)
+    DO              reduce using rule 12 (conditional -> IF ELSE THEN .)
+    OPR             reduce using rule 12 (conditional -> IF ELSE THEN .)
+    INT             reduce using rule 12 (conditional -> IF ELSE THEN .)
+    WORD            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    COMMENT         reduce using rule 12 (conditional -> IF ELSE THEN .)
+    .               reduce using rule 12 (conditional -> IF ELSE THEN .)
+    DOTQUOTE        reduce using rule 12 (conditional -> IF ELSE THEN .)
+    EMIT            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    CHAR            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    DUP             reduce using rule 12 (conditional -> IF ELSE THEN .)
+    CR              reduce using rule 12 (conditional -> IF ELSE THEN .)
+    SPACE           reduce using rule 12 (conditional -> IF ELSE THEN .)
+    SPACES          reduce using rule 12 (conditional -> IF ELSE THEN .)
+    SWAP            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    KEY             reduce using rule 12 (conditional -> IF ELSE THEN .)
+    DEPTH           reduce using rule 12 (conditional -> IF ELSE THEN .)
+    DROP            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    $end            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    ELSE            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    LOOP            reduce using rule 12 (conditional -> IF ELSE THEN .)
+    PLUSLOOP        reduce using rule 12 (conditional -> IF ELSE THEN .)
+    ;               reduce using rule 12 (conditional -> IF ELSE THEN .)
+    THEN            reduce using rule 12 (conditional -> IF ELSE THEN .)
+
+
+state 39
+
+    (14) conditional -> IF ELSE exp . THEN
+    (5) exp -> exp . term
+    (6) exp -> exp . function
+    (7) exp -> exp . conditional
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
+
+    THEN            shift and go to state 44
+    :               shift and go to state 7
+    IF              shift and go to state 8
+    DO              shift and go to state 9
+    OPR             shift and go to state 10
+    INT             shift and go to state 11
+    WORD            shift and go to state 12
+    COMMENT         shift and go to state 13
+    .               shift and go to state 14
+    DOTQUOTE        shift and go to state 15
+    EMIT            shift and go to state 16
+    CHAR            shift and go to state 17
+    DUP             shift and go to state 18
+    CR              shift and go to state 19
+    SPACE           shift and go to state 20
+    SPACES          shift and go to state 21
+    SWAP            shift and go to state 22
+    KEY             shift and go to state 23
+    DEPTH           shift and go to state 24
+    DROP            shift and go to state 25
+
+    term                           shift and go to state 26
+    function                       shift and go to state 27
+    conditional                    shift and go to state 28
+    loop                           shift and go to state 29
+    fact                           shift and go to state 6
+
+state 40
+
+    (13) conditional -> IF exp ELSE . THEN
+    (15) conditional -> IF exp ELSE . exp THEN
+    (1) exp -> . term
+    (2) exp -> . function
+    (3) exp -> . conditional
+    (4) exp -> . loop
+    (5) exp -> . exp term
+    (6) exp -> . exp function
+    (7) exp -> . exp conditional
+    (8) exp -> . exp loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
+
+    THEN            shift and go to state 46
+    :               shift and go to state 7
+    IF              shift and go to state 8
+    DO              shift and go to state 9
+    OPR             shift and go to state 10
+    INT             shift and go to state 11
+    WORD            shift and go to state 12
+    COMMENT         shift and go to state 13
+    .               shift and go to state 14
+    DOTQUOTE        shift and go to state 15
+    EMIT            shift and go to state 16
+    CHAR            shift and go to state 17
+    DUP             shift and go to state 18
+    CR              shift and go to state 19
+    SPACE           shift and go to state 20
+    SPACES          shift and go to state 21
+    SWAP            shift and go to state 22
+    KEY             shift and go to state 23
+    DEPTH           shift and go to state 24
+    DROP            shift and go to state 25
+
+    exp                            shift and go to state 45
+    term                           shift and go to state 2
+    function                       shift and go to state 3
+    conditional                    shift and go to state 4
+    loop                           shift and go to state 5
+    fact                           shift and go to state 6
+
+state 41
+
+    (17) loop -> DO exp LOOP .
+
+    :               reduce using rule 17 (loop -> DO exp LOOP .)
+    IF              reduce using rule 17 (loop -> DO exp LOOP .)
+    DO              reduce using rule 17 (loop -> DO exp LOOP .)
+    OPR             reduce using rule 17 (loop -> DO exp LOOP .)
+    INT             reduce using rule 17 (loop -> DO exp LOOP .)
+    WORD            reduce using rule 17 (loop -> DO exp LOOP .)
+    COMMENT         reduce using rule 17 (loop -> DO exp LOOP .)
+    .               reduce using rule 17 (loop -> DO exp LOOP .)
+    DOTQUOTE        reduce using rule 17 (loop -> DO exp LOOP .)
+    EMIT            reduce using rule 17 (loop -> DO exp LOOP .)
+    CHAR            reduce using rule 17 (loop -> DO exp LOOP .)
+    DUP             reduce using rule 17 (loop -> DO exp LOOP .)
+    CR              reduce using rule 17 (loop -> DO exp LOOP .)
+    SPACE           reduce using rule 17 (loop -> DO exp LOOP .)
+    SPACES          reduce using rule 17 (loop -> DO exp LOOP .)
+    SWAP            reduce using rule 17 (loop -> DO exp LOOP .)
+    KEY             reduce using rule 17 (loop -> DO exp LOOP .)
+    DEPTH           reduce using rule 17 (loop -> DO exp LOOP .)
+    DROP            reduce using rule 17 (loop -> DO exp LOOP .)
+    $end            reduce using rule 17 (loop -> DO exp LOOP .)
+    ELSE            reduce using rule 17 (loop -> DO exp LOOP .)
+    LOOP            reduce using rule 17 (loop -> DO exp LOOP .)
+    PLUSLOOP        reduce using rule 17 (loop -> DO exp LOOP .)
+    ;               reduce using rule 17 (loop -> DO exp LOOP .)
+    THEN            reduce using rule 17 (loop -> DO exp LOOP .)
+
+
+state 42
+
+    (19) loop -> DO exp PLUSLOOP .
+
+    :               reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    IF              reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    DO              reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    OPR             reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    INT             reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    WORD            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    COMMENT         reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    .               reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    DOTQUOTE        reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    EMIT            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    CHAR            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    DUP             reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    CR              reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    SPACE           reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    SPACES          reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    SWAP            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    KEY             reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    DEPTH           reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    DROP            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    $end            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    ELSE            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    LOOP            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    PLUSLOOP        reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    ;               reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+    THEN            reduce using rule 19 (loop -> DO exp PLUSLOOP .)
+
+
+state 43
+
+    (11) function -> : NAME exp ; .
+
+    :               reduce using rule 11 (function -> : NAME exp ; .)
+    IF              reduce using rule 11 (function -> : NAME exp ; .)
+    DO              reduce using rule 11 (function -> : NAME exp ; .)
+    OPR             reduce using rule 11 (function -> : NAME exp ; .)
+    INT             reduce using rule 11 (function -> : NAME exp ; .)
+    WORD            reduce using rule 11 (function -> : NAME exp ; .)
+    COMMENT         reduce using rule 11 (function -> : NAME exp ; .)
+    .               reduce using rule 11 (function -> : NAME exp ; .)
+    DOTQUOTE        reduce using rule 11 (function -> : NAME exp ; .)
+    EMIT            reduce using rule 11 (function -> : NAME exp ; .)
+    CHAR            reduce using rule 11 (function -> : NAME exp ; .)
+    DUP             reduce using rule 11 (function -> : NAME exp ; .)
+    CR              reduce using rule 11 (function -> : NAME exp ; .)
+    SPACE           reduce using rule 11 (function -> : NAME exp ; .)
+    SPACES          reduce using rule 11 (function -> : NAME exp ; .)
+    SWAP            reduce using rule 11 (function -> : NAME exp ; .)
+    KEY             reduce using rule 11 (function -> : NAME exp ; .)
+    DEPTH           reduce using rule 11 (function -> : NAME exp ; .)
+    DROP            reduce using rule 11 (function -> : NAME exp ; .)
+    $end            reduce using rule 11 (function -> : NAME exp ; .)
+    ELSE            reduce using rule 11 (function -> : NAME exp ; .)
+    LOOP            reduce using rule 11 (function -> : NAME exp ; .)
+    PLUSLOOP        reduce using rule 11 (function -> : NAME exp ; .)
+    ;               reduce using rule 11 (function -> : NAME exp ; .)
+    THEN            reduce using rule 11 (function -> : NAME exp ; .)
+
+
+state 44
+
+    (14) conditional -> IF ELSE exp THEN .
+
+    :               reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    IF              reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    DO              reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    OPR             reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    INT             reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    WORD            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    COMMENT         reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    .               reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    DOTQUOTE        reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    EMIT            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    CHAR            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    DUP             reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    CR              reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    SPACE           reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    SPACES          reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    SWAP            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    KEY             reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    DEPTH           reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    DROP            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    $end            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    ELSE            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    LOOP            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    PLUSLOOP        reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    ;               reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+    THEN            reduce using rule 14 (conditional -> IF ELSE exp THEN .)
+
 
 state 45
 
-    (12) conditional -> IF exp ELSE THEN .
+    (15) conditional -> IF exp ELSE exp . THEN
+    (5) exp -> exp . term
+    (6) exp -> exp . function
+    (7) exp -> exp . conditional
+    (8) exp -> exp . loop
+    (9) term -> . fact
+    (10) function -> . : NAME ;
+    (11) function -> . : NAME exp ;
+    (12) conditional -> . IF ELSE THEN
+    (13) conditional -> . IF exp ELSE THEN
+    (14) conditional -> . IF ELSE exp THEN
+    (15) conditional -> . IF exp ELSE exp THEN
+    (16) loop -> . DO LOOP
+    (17) loop -> . DO exp LOOP
+    (18) loop -> . DO PLUSLOOP
+    (19) loop -> . DO exp PLUSLOOP
+    (20) fact -> . OPR
+    (21) fact -> . INT
+    (22) fact -> . WORD
+    (23) fact -> . COMMENT
+    (24) fact -> . .
+    (25) fact -> . DOTQUOTE
+    (26) fact -> . EMIT
+    (27) fact -> . CHAR
+    (28) fact -> . DUP
+    (29) fact -> . CR
+    (30) fact -> . SPACE
+    (31) fact -> . SPACES
+    (32) fact -> . SWAP
+    (33) fact -> . KEY
+    (34) fact -> . DEPTH
+    (35) fact -> . DROP
 
-    :               reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    IF              reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    OPR             reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    INT             reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    WORD            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    COMMENT         reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    .               reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    DOTQUOTE        reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    EMIT            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    CHAR            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    DUP             reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    CR              reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    SPACE           reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    SPACES          reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    SWAP            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    KEY             reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    DEPTH           reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    DROP            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    $end            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    ELSE            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    LOOP            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    PLUSLOOP        reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    ;               reduce using rule 12 (conditional -> IF exp ELSE THEN .)
-    THEN            reduce using rule 12 (conditional -> IF exp ELSE THEN .)
+    THEN            shift and go to state 47
+    :               shift and go to state 7
+    IF              shift and go to state 8
+    DO              shift and go to state 9
+    OPR             shift and go to state 10
+    INT             shift and go to state 11
+    WORD            shift and go to state 12
+    COMMENT         shift and go to state 13
+    .               shift and go to state 14
+    DOTQUOTE        shift and go to state 15
+    EMIT            shift and go to state 16
+    CHAR            shift and go to state 17
+    DUP             shift and go to state 18
+    CR              shift and go to state 19
+    SPACE           shift and go to state 20
+    SPACES          shift and go to state 21
+    SWAP            shift and go to state 22
+    KEY             shift and go to state 23
+    DEPTH           shift and go to state 24
+    DROP            shift and go to state 25
 
+    term                           shift and go to state 26
+    function                       shift and go to state 27
+    conditional                    shift and go to state 28
+    loop                           shift and go to state 29
+    fact                           shift and go to state 6
 
 state 46
 
-    (14) conditional -> IF exp ELSE exp THEN .
+    (13) conditional -> IF exp ELSE THEN .
 
-    :               reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    IF              reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    OPR             reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    INT             reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    WORD            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    COMMENT         reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    .               reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    DOTQUOTE        reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    EMIT            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    CHAR            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    DUP             reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    CR              reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    SPACE           reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    SPACES          reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    SWAP            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    KEY             reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    DEPTH           reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    DROP            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    $end            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    ELSE            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    LOOP            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    PLUSLOOP        reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    ;               reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
-    THEN            reduce using rule 14 (conditional -> IF exp ELSE exp THEN .)
+    :               reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    IF              reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    DO              reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    OPR             reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    INT             reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    WORD            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    COMMENT         reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    .               reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    DOTQUOTE        reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    EMIT            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    CHAR            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    DUP             reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    CR              reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    SPACE           reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    SPACES          reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    SWAP            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    KEY             reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    DEPTH           reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    DROP            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    $end            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    ELSE            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    LOOP            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    PLUSLOOP        reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    ;               reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+    THEN            reduce using rule 13 (conditional -> IF exp ELSE THEN .)
+
+
+state 47
+
+    (15) conditional -> IF exp ELSE exp THEN .
+
+    :               reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    IF              reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    DO              reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    OPR             reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    INT             reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    WORD            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    COMMENT         reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    .               reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    DOTQUOTE        reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    EMIT            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    CHAR            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    DUP             reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    CR              reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    SPACE           reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    SPACES          reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    SWAP            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    KEY             reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    DEPTH           reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    DROP            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    $end            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    ELSE            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    LOOP            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    PLUSLOOP        reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    ;               reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
+    THEN            reduce using rule 15 (conditional -> IF exp ELSE exp THEN .)
 

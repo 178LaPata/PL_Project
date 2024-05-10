@@ -33,6 +33,13 @@ def p_exp4(p):
         p[0] = p[1]
     else:
         p[0] = p[1] + p[2]
+    
+def p_exp5(p):
+    "exp : exp loop"
+    if p[2] == "":
+        p[0] = p[1]
+    else:
+        p[0] = p[1] + p[2]
 
 
 def p_term1(p):
@@ -89,11 +96,17 @@ def p_conditional4(p):
 def p_loop1(p):
     "loop : DO LOOP"
     p[0] = f"""
+STOREG {parser.var_size}
+STOREG {parser.var_size+1}
 WHILE{parser.var_size}:
 PUSHG {parser.var_size}
 PUSHG {parser.var_size+1}
 SUP
 JZ ENDWHILE{parser.var_size}
+PUSHG {parser.var_size}
+PUSHI 1
+SUB
+STOREG {parser.var_size}
 JUMP WHILE{parser.var_size}
 ENDWHILE{parser.var_size}:
 """
@@ -102,11 +115,16 @@ ENDWHILE{parser.var_size}:
 def p_loop2(p):
     "loop : DO exp LOOP"
     p[0] = f"""
+STOREG {parser.var_size}
+STOREG {parser.var_size+1}
 WHILE{parser.var_size}:
 {p[2]}PUSHG {parser.var_size}
 PUSHG {parser.var_size+1}
 SUP
 JZ ENDWHILE{parser.var_size}
+PUSHI 1
+SUB
+STOREG {parser.var_size}
 JUMP WHILE{parser.var_size}
 ENDWHILE{parser.var_size}:
 """
@@ -116,11 +134,16 @@ ENDWHILE{parser.var_size}:
 def p_plusloop1(p):
     "loop : DO PLUSLOOP"
     p[0] = f"""
+STOREG {parser.var_size}
+STOREG {parser.var_size+1}
 WHILE{parser.var_size}:
 PUSHG {parser.var_size}
 PUSHG {parser.var_size+1}
 SUP
 JZ ENDWHILE{parser.var_size}
+PUSHI 1
+SUB
+STOREG {parser.var_size}
 JUMP WHILE{parser.var_size}
 ENDWHILE{parser.var_size}:
 """
@@ -129,12 +152,16 @@ ENDWHILE{parser.var_size}:
 def p_plusloop2(p):
     "loop : DO exp PLUSLOOP"
     p[0] = f"""
+STOREG {parser.var_size}
+STOREG {parser.var_size+1}
 WHILE{parser.var_size}:
 PUSHG {parser.var_size}
 PUSHG {parser.var_size+1}
 SUP
-JZ ENDWHILE{parser.var_size}
-{p[2]}
+JZ ENDWHILE{parser.var_size}{p[2]}
+PUSHI 1
+SUB
+STOREG {parser.var_size}
 JUMP WHILE{parser.var_size}
 ENDWHILE{parser.var_size}:
 """
