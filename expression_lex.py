@@ -22,21 +22,12 @@ tokens = (
     'DO',
     'LOOP',
     'PLUSLOOP',
-    #'NUMBER_FLOAT',
-    #'PLUS',
-    #'MINUS',
-    #'TIMES',
-    #'DIVIDE',
-    #'MOD',
-    #'LPAREN',
-    #'RPAREN',
-    #'BSLASH',
-    #'DOT',
+    'VARIABLE',
     'COMMENT',
     'WORD'
 )
 
-literals = ['.',':',';']
+literals = ['.',':',';','!','@']
 
 
 def t_COMMENT(t):
@@ -49,16 +40,13 @@ def t_CHAR(t):
     t.value = re.match(r'(?i)\bCHAR\b\s+(\S+)', t.value).group(1)
     return t
 
-#numbers
 def t_INT(t):
     r'(?P<sign>\+|-)?(\d+)(?=(?(sign)\s|[\+\-\*\/]?\s))'
     return t
 
-
 def t_NAME(t):
     r'(?<=:\s)(\S+)(?=.*;\s)'
     return t
-
 
 def t_DOTQUOTE(t):
     r'\."\s[\S\s]*?"'
@@ -69,11 +57,9 @@ def t_EMIT(t):
     r'(?i)\bEMIT\b'
     return t
 
-
 def t_DUP(t):
     r'(?i)\bDUP\b'
     return t
-
 
 def t_CR(t):
     r'(?i)\bCR\b'
@@ -127,18 +113,14 @@ def t_PLUSLOOP(t):
     r'(?i)\b\+LOOP\b'
     return t
 
-
-
-
-
-
-
+def t_VARIABLE(t):
+    r'(?i)\bVARIABLE\b'
+    return t
 
 def t_OPR(t):
     r'(\+|\-|\*|\/|\%|==|!=|<=|>=|<|>)'
     return t
 
-#words
 def t_WORD(t):
     r'([\S]{2,}|[a-zA-Z])\S*'
     t.value = str(t.value)
@@ -151,13 +133,6 @@ def t_error(t):
     print(f"Carácter ilegal {t.value[0]}")
     t.lexer.skip(1)
 
+
+
 lexer = lex.lex()
-
-
-v = """
-CHAR fds
-"""
-
-lexer.input(v)
-for tok in lexer:
-    print(tok)

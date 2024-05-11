@@ -10,6 +10,7 @@ def p_exp1(p):
            | function
            | conditional
            | loop
+           | variable
     """
     p[0] = p[1]
 
@@ -41,6 +42,14 @@ def p_exp5(p):
     else:
         p[0] = p[1] + p[2]
 
+def p_exp6(p):
+    "exp : exp variable"
+    if p[2] == "":
+        p[0] = p[1]
+    else:
+        p[0] = p[1] + p[2]
+    
+
 
 def p_term1(p):
     "term : fact"
@@ -50,21 +59,21 @@ def p_term1(p):
 
 def p_functions1(p):
     "function : ':' NAME ';'"
-    if p[2] in parser.func:
+    if p[2] in parser.func or p[2] in parser.var:
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: "\n"})
+        parser.func.update({p[2]: ""})
         parser.word_count += 2
         p[0] = ""
 
 def p_functions2(p):
     "function : ':' NAME exp ';'"
-    if p[2] in parser.func:
+    if p[2] in parser.func or p[2] in parser.var:
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.func.update({p[2]: f"{p[3]}\n"})
+        parser.func.update({p[2]: f"{p[3]}"})
         parser.word_count += 2
         p[0] = ""
 
@@ -73,12 +82,16 @@ def p_conditional1(p):
     "conditional : IF ELSE THEN"
     p[0] = f'jz ELSE{parser.else_count}\nELSE{parser.else_count}:\n'
     parser.else_count += 1
+    parser.word_count += 2
 
 
 def p_conditional2(p):
     "conditional : IF exp ELSE THEN"
     p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n'
     parser.else_count += 1
+    parser.word_count += 2
+
+
 
 
 def p_conditional3(p):
@@ -169,6 +182,34 @@ ENDWHILE{parser.var_size}:
 
 
 
+def p_variable1(p):
+    "variable : VARIABLE WORD"
+    if p[2] in parser.func or p[2] in parser.var:
+        print(f"Word {parser.word_count}: Duplicate name")
+        parser.success = False
+    else:
+        parser.var.update({p[2]: f'{parser.var_size}'})
+        parser.var_size += 1
+        p[0] = ""
+        for key in parser.func:
+            print(key)
+
+def p_variable2(p):
+    "variable : WORD '!'"
+    if p[1] not in parser.var:
+        print(f"Word {parser.word_count}: Undefined name")
+        parser.success = False
+    else:
+        p[0] = f"STOREG {parser.var[p[1]]}"
+
+def p_variable3(p):
+    "variable : WORD '@'"
+    if p[1] not in parser.var:
+        print(f"Word {parser.word_count}: Undefined name")
+        parser.success = False
+    else:
+        p[0] = f"PUSHG {parser.var[p[1]]}"
+
 
 def p_factOPR(p):
     "fact : OPR"
@@ -206,12 +247,12 @@ def p_factInt(p):
 
 def p_factWord(p):
     "fact : WORD"
-    if p[1] not in parser.func:
+    if p[1] in parser.func:    
+        p[0] = f"{p[1]}:\n{parser.func[p[1]]}\n"
+    else:
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
         p[0] = ""
-    else:    
-        p[0] = f"{p[1]}:\n{parser.func[p[1]]}\n"
 
 
 
@@ -294,26 +335,27 @@ parser = yacc.yacc()
 parser.success = True
 
 parser.func = {}
+parser.var = {}
 parser.word_count = 0
 parser.else_count = 0
 parser.stack_size = 0
 parser.var_size = 0
 
-source = ""
-for linha in sys.stdin:
-    source += linha
+
+
+
+with open('input.txt', 'r') as file:
+    source = file.read()
+
 codigo = parser.parse(source)
-if parser.success:
-    print('Parsing completed!')
-    for i in range(parser.var_size):
-        print("PUSHI 0")
-    print("START\n")
-    print(codigo)
-    print("STOP\n")
-    #for key, value in parser.func.items():
-    #    print(f"{key}:")
-    #    # Replace "\n" with "\n\t"
-    #    modified_value = value.replace("\n", "\n\t")
-    #    print("\t"+modified_value)
-else:
-    print('Parsing failed!')
+
+with open('output.txt','w') as f:
+    if parser.success:
+        print('Parsing completed!')
+        for i in range(parser.var_size):
+                f.write("PUSHI 0\n")
+        f.write("\nSTART\n\n")
+        f.write(codigo)
+        f.write("\nSTOP\n")
+    else:
+        print('Parsing failed!')

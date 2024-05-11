@@ -1,0 +1,10 @@
+VARIABLE fds
+VARIABLE mano
+
+123 56 + +
+
+
+: yo + ;
+
+yo
+
