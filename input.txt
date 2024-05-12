@@ -1,10 +1,4 @@
-VARIABLE fds
-VARIABLE mano
-
-123 56 + +
-
-
-: yo + ;
-
-yo
-
+: fds : mano + ; 123 ;
+fds
+mano
+123 +

@@ -3,71 +3,26 @@ import sys
 import ply.yacc as yacc
 from expression_lex import tokens
 
+def p_exp_empty(p):
+    'exp : '
+    p[0] = ''
 
-
-def p_exp1(p):
-    """exp : term
-           | function
-           | conditional
-           | loop
-           | variable
+def p_exp(p):
+    """exp : term exp
+           | function exp
+           | conditional exp
+           | loop exp
+           | variable exp
     """
-    p[0] = p[1]
-
-def p_exp2(p):
-    "exp : exp term"
-    if p[2] == "":
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
-
-def p_exp3(p):
-    "exp : exp function"
-    if p[2] == "":
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
-
-def p_exp4(p):
-    "exp : exp conditional"
-    if p[2] == "":
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
-    
-def p_exp5(p):
-    "exp : exp loop"
-    if p[2] == "":
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
-
-def p_exp6(p):
-    "exp : exp variable"
-    if p[2] == "":
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
+    p[0] = p[1] + p[2]
     
 
-
-def p_term1(p):
+def p_term(p):
     "term : fact"
     p[0] = p[1]
     parser.word_count += 1
 
-
-def p_functions1(p):
-    "function : ':' NAME ';'"
-    if p[2] in parser.func or p[2] in parser.var:
-        print(f"Word {parser.word_count}: Duplicate name")
-        parser.success = False
-    else:
-        parser.func.update({p[2]: ""})
-        parser.word_count += 2
-        p[0] = ""
-
-def p_functions2(p):
+def p_function(p):
     "function : ':' NAME exp ';'"
     if p[2] in parser.func or p[2] in parser.var:
         print(f"Word {parser.word_count}: Duplicate name")
@@ -77,109 +32,47 @@ def p_functions2(p):
         parser.word_count += 2
         p[0] = ""
 
-
-def p_conditional1(p):
-    "conditional : IF ELSE THEN"
-    p[0] = f'jz ELSE{parser.else_count}\nELSE{parser.else_count}:\n'
-    parser.else_count += 1
-    parser.word_count += 2
-
-
-def p_conditional2(p):
-    "conditional : IF exp ELSE THEN"
-    p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n'
-    parser.else_count += 1
-    parser.word_count += 2
-
-
-
-
-def p_conditional3(p):
-    "conditional : IF ELSE exp THEN"
-    p[0] = f'jz ELSE{parser.else_count}\nELSE{parser.else_count}:\n{p[3]}'
-    parser.else_count += 1
-
-
-def p_conditional4(p):
+def p_conditional(p):
     "conditional : IF exp ELSE exp THEN"
     p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n{p[4]}'
     parser.else_count += 1
 
-
-def p_loop1(p):
-    "loop : DO LOOP"
-    p[0] = f"""
-STOREG {parser.var_size}
-STOREG {parser.var_size+1}
-WHILE{parser.var_size}:
-PUSHG {parser.var_size}
-PUSHG {parser.var_size+1}
-SUP
-JZ ENDWHILE{parser.var_size}
-PUSHG {parser.var_size}
-PUSHI 1
-SUB
-STOREG {parser.var_size}
-JUMP WHILE{parser.var_size}
-ENDWHILE{parser.var_size}:
-"""
-    parser.var_size += 2
-
-def p_loop2(p):
+def p_loop(p):
     "loop : DO exp LOOP"
     p[0] = f"""
-STOREG {parser.var_size}
-STOREG {parser.var_size+1}
-WHILE{parser.var_size}:
-{p[2]}PUSHG {parser.var_size}
-PUSHG {parser.var_size+1}
+STOREG {parser.var_count}
+STOREG {parser.var_count+1}
+WHILE{parser.var_count}:
+{p[2]}PUSHG {parser.var_count}
+PUSHG {parser.var_count+1}
 SUP
-JZ ENDWHILE{parser.var_size}
+JZ ENDWHILE{parser.var_count}
 PUSHI 1
 SUB
-STOREG {parser.var_size}
-JUMP WHILE{parser.var_size}
-ENDWHILE{parser.var_size}:
+STOREG {parser.var_count}
+JUMP WHILE{parser.var_count}
+ENDWHILE{parser.var_count}:
 """
-    parser.var_size += 2
+    parser.var_count += 2
 
 
-def p_plusloop1(p):
-    "loop : DO PLUSLOOP"
-    p[0] = f"""
-STOREG {parser.var_size}
-STOREG {parser.var_size+1}
-WHILE{parser.var_size}:
-PUSHG {parser.var_size}
-PUSHG {parser.var_size+1}
-SUP
-JZ ENDWHILE{parser.var_size}
-PUSHI 1
-SUB
-STOREG {parser.var_size}
-JUMP WHILE{parser.var_size}
-ENDWHILE{parser.var_size}:
-"""
-    parser.var_size += 2
-
-def p_plusloop2(p):
+def p_plusloop(p):
     "loop : DO exp PLUSLOOP"
     p[0] = f"""
-STOREG {parser.var_size}
-STOREG {parser.var_size+1}
-WHILE{parser.var_size}:
-PUSHG {parser.var_size}
-PUSHG {parser.var_size+1}
+STOREG {parser.var_count}
+STOREG {parser.var_count+1}
+WHILE{parser.var_count}:
+PUSHG {parser.var_count}
+PUSHG {parser.var_count+1}
 SUP
-JZ ENDWHILE{parser.var_size}{p[2]}
+JZ ENDWHILE{parser.var_count}{p[2]}
 PUSHI 1
 SUB
-STOREG {parser.var_size}
-JUMP WHILE{parser.var_size}
-ENDWHILE{parser.var_size}:
+STOREG {parser.var_count}
+JUMP WHILE{parser.var_count}
+ENDWHILE{parser.var_count}:
 """
-    parser.var_size += 2
-
+    parser.var_count += 2
 
 
 def p_variable1(p):
@@ -188,8 +81,8 @@ def p_variable1(p):
         print(f"Word {parser.word_count}: Duplicate name")
         parser.success = False
     else:
-        parser.var.update({p[2]: f'{parser.var_size}'})
-        parser.var_size += 1
+        parser.var.update({p[2]: f'{parser.var_count}'})
+        parser.var_count += 1
         p[0] = ""
         for key in parser.func:
             print(key)
@@ -247,8 +140,8 @@ def p_factInt(p):
 
 def p_factWord(p):
     "fact : WORD"
-    if p[1] in parser.func:    
-        p[0] = f"{p[1]}:\n{parser.func[p[1]]}\n"
+    if p[1] in parser.func:
+        p[0] = f"{p[1]}:\n\t{parser.func[p[1]]}\n"
     else:
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
@@ -290,12 +183,20 @@ def p_factCR(p):
 
 def p_factSPACE(p):
     "fact : SPACE"
-    p[0] = 'PUSHS " "'
+    p[0] = 'PUSHS " "\nWRITES\n'
     
 
 def p_factSPACES(p):
     "fact : SPACES"
-    p[0] = "SPACES"
+    p[0] = f"""SPACES{parser.spaces_count}:
+PUSHI 1
+SUB
+PUSHS " "
+WRITES
+DUP 1
+NOT jz SPACES{parser.spaces_count}
+POP 1
+"""
 
 
 
@@ -323,7 +224,6 @@ def p_factDROP(p):
 
 
 
-
 def p_error(p):
     print("Syntax error in input!",p)
     parser.success=False
@@ -339,7 +239,8 @@ parser.var = {}
 parser.word_count = 0
 parser.else_count = 0
 parser.stack_size = 0
-parser.var_size = 0
+parser.var_count = 0
+parser.spaces_count = 0
 
 
 
@@ -352,7 +253,7 @@ codigo = parser.parse(source)
 with open('output.txt','w') as f:
     if parser.success:
         print('Parsing completed!')
-        for i in range(parser.var_size):
+        for i in range(parser.var_count):
                 f.write("PUSHI 0\n")
         f.write("\nSTART\n\n")
         f.write(codigo)

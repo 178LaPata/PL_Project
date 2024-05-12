@@ -27,7 +27,7 @@ tokens = (
     'WORD'
 )
 
-literals = ['.',':',';','!','@']
+literals = ['.',':',';','!','@','i']
 
 
 def t_COMMENT(t):
