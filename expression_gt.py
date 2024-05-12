@@ -34,7 +34,7 @@ def p_function(p):
 
 def p_conditional(p):
     "conditional : IF exp ELSE exp THEN"
-    p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n{p[4]}'
+    p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n{p[4]}ENDIF{parser.else_count}:'
     parser.else_count += 1
     parser.word_count += 2
 

@@ -1,4 +1,4 @@
-VARIABLE arroz
-VARIABLE fds
-arroz @
-fds @
+123
+567
++
+.
