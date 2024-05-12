@@ -1,4 +1,1 @@
-: fds : mano + ; 123 ;
-fds
-mano
-123 +
+i

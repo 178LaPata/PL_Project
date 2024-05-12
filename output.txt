@@ -1,13 +1,5 @@
 
 START
 
-fds:
-	PUSHI 123
-
-mano:
-	ADD
-
-PUSHI 123
-ADD
-
+PUSHG 0
 STOP

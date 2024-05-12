@@ -22,12 +22,13 @@ tokens = (
     'DO',
     'LOOP',
     'PLUSLOOP',
+    'ITERATION',
     'VARIABLE',
     'COMMENT',
     'WORD'
 )
 
-literals = ['.',':',';','!','@','i']
+literals = ['.',':',';','!','@']
 
 
 def t_COMMENT(t):
@@ -112,6 +113,11 @@ def t_LOOP(t):
 def t_PLUSLOOP(t):
     r'(?i)\b\+LOOP\b'
     return t
+
+def t_ITERATION(t):
+    r'(?i)\bi\b'
+    return t
+
 
 def t_VARIABLE(t):
     r'(?i)\bVARIABLE\b'

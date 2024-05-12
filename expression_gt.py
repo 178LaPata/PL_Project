@@ -36,6 +36,7 @@ def p_conditional(p):
     "conditional : IF exp ELSE exp THEN"
     p[0] = f'jz ELSE{parser.else_count}\n{p[2]}ELSE{parser.else_count}:\n{p[4]}'
     parser.else_count += 1
+    parser.word_count += 2
 
 def p_loop(p):
     "loop : DO exp LOOP"
@@ -54,6 +55,7 @@ JUMP WHILE{parser.var_count}
 ENDWHILE{parser.var_count}:
 """
     parser.var_count += 2
+    parser.word_count += 2
 
 
 def p_plusloop(p):
@@ -73,6 +75,7 @@ JUMP WHILE{parser.var_count}
 ENDWHILE{parser.var_count}:
 """
     parser.var_count += 2
+    parser.word_count += 2
 
 
 def p_variable1(p):
@@ -94,6 +97,7 @@ def p_variable2(p):
         parser.success = False
     else:
         p[0] = f"STOREG {parser.var[p[1]]}"
+        parser.word_count += 1
 
 def p_variable3(p):
     "variable : WORD '@'"
@@ -102,6 +106,8 @@ def p_variable3(p):
         parser.success = False
     else:
         p[0] = f"PUSHG {parser.var[p[1]]}"
+        parser.word_count += 1
+
 
 
 def p_factOPR(p):
@@ -146,8 +152,6 @@ def p_factWord(p):
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
         p[0] = ""
-
-
 
 def p_factComment(p):
     "fact : COMMENT"
@@ -199,7 +203,6 @@ POP 1
 """
 
 
-
 def p_factSWAP(p):
     "fact : SWAP"
     p[0] = "SWAP\n"
@@ -221,6 +224,12 @@ def p_factDROP(p):
     "fact : DROP"
     p[0] = "POP 1\n"
     parser.stack_size -= 1
+
+
+def p_factITER(p):
+    "fact : ITERATION"
+    p[0] = f"PUSHG {parser.var_count}"
+    parser.stack_size += 1
 
 
 
