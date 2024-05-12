@@ -1,4 +1,5 @@
 import sys
+import re
 
 import ply.yacc as yacc
 from expression_lex import tokens
@@ -43,19 +44,20 @@ def p_loop(p):
     p[0] = f"""
 STOREG {parser.var_count}
 STOREG {parser.var_count+1}
-WHILE{parser.var_count}:
+WHILE{parser.while_count}:
 {p[2]}PUSHG {parser.var_count}
 PUSHG {parser.var_count+1}
 SUP
-JZ ENDWHILE{parser.var_count}
+JZ ENDWHILE{parser.while_count}
 PUSHI 1
 SUB
 STOREG {parser.var_count}
-JUMP WHILE{parser.var_count}
-ENDWHILE{parser.var_count}:
+JUMP WHILE{parser.while_count}
+ENDWHILE{parser.while_count}:
 """
     parser.var_count += 2
     parser.word_count += 2
+    parser.while_count += 1
 
 
 def p_plusloop(p):
@@ -63,19 +65,21 @@ def p_plusloop(p):
     p[0] = f"""
 STOREG {parser.var_count}
 STOREG {parser.var_count+1}
-WHILE{parser.var_count}:
+WHILE{parser.while_count}:
 PUSHG {parser.var_count}
 PUSHG {parser.var_count+1}
 SUP
-JZ ENDWHILE{parser.var_count}{p[2]}
+JZ ENDWHILE{parser.while_count}{p[2]}
 PUSHI 1
 SUB
 STOREG {parser.var_count}
-JUMP WHILE{parser.var_count}
-ENDWHILE{parser.var_count}:
+JUMP WHILE{parser.while_count}
+ENDWHILE{parser.while_count}:
 """
     parser.var_count += 2
     parser.word_count += 2
+    parser.while_count += 1
+
 
 
 def p_variable1(p):
@@ -144,10 +148,37 @@ def p_factInt(p):
     parser.stack_size += 1
 
 
+
+def changeCount(string):
+    while_pattern = re.compile(r'\bWHILE(\d+)\b')
+    endwhile_pattern = re.compile(r'\bENDWHILE(\d+)\b')
+
+    else_pattern = re.compile(r'\bELSE(\d+)\b')
+    endif_pattern = re.compile(r'\bENDIF(\d+)\b')
+
+    spaces_pattern = re.compile(r'\bSPACES(\d+)\b')    
+
+    if while_pattern.search(string):
+        parser.while_count += 1
+        string = while_pattern.sub(lambda x: 'WHILE' + str(parser.while_count), string)
+        string = endwhile_pattern.sub(lambda x: 'ENDWHILE' + str(parser.while_count), string)
+    if else_pattern.search(string):
+        parser.else_count += 1
+        string = else_pattern.sub(lambda x: 'ELSE' + str(parser.else_count), string)
+        string = endif_pattern.sub(lambda x: 'ENDIF' + str(parser.else_count), string)
+    if spaces_pattern.search(string):
+        parser.spaces_count += 1
+        string = spaces_pattern.sub(lambda x: 'SPACES' + str(parser.spaces_count), string)
+
+    return string
+
+
+
 def p_factWord(p):
     "fact : WORD"
     if p[1] in parser.func:
-        p[0] = f"{p[1]}:\n\t{parser.func[p[1]]}\n"
+        p[0] = f"{p[1]}:\n{parser.func[p[1]]}\n"
+        parser.func[p[1]] = changeCount(parser.func[p[1]])
     else:
         p[0] = ""
         parser.success = False
@@ -155,6 +186,8 @@ def p_factWord(p):
             print(f"Word {parser.word_count}: Unterminated string")
         else:
             print(f"Word {parser.word_count}: Undefined name")
+
+
 
 
 def p_factComment(p):
@@ -251,6 +284,7 @@ parser.success = True
 parser.func = {}
 parser.var = {}
 parser.word_count = 0
+parser.while_count = 0
 parser.else_count = 0
 parser.stack_size = 0
 parser.var_count = 0
