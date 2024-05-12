@@ -46,7 +46,7 @@ def t_INT(t):
     return t
 
 def t_NAME(t):
-    r'(?<=:\s)(\S+)(?=.*;\s)'
+    r'(?<=:\s)(\S+)(?=[\S\s]*;[^\S])'
     return t
 
 def t_DOTQUOTE(t):
