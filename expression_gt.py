@@ -205,6 +205,7 @@ DUP 1
 NOT jz SPACES{parser.spaces_count}
 POP 1
 """
+    parser.spaces_count += 1
 
 
 def p_factSWAP(p):

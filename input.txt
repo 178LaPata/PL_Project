@@ -1,6 +1,5 @@
-: somatorio ( n -- sum )
-0 swap 1 do
-i +
-loop ;
-
-5 somatorio .
+ SPROUTS ." Miniature vegetables." ;
+: MENU
+CR TOFU CR SPROUTS CR
+;
+MENU
