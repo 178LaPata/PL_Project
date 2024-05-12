@@ -96,7 +96,7 @@ def p_variable2(p):
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
     else:
-        p[0] = f"STOREG {parser.var[p[1]]}"
+        p[0] = f"STOREG {parser.var[p[1]]}\n"
         parser.word_count += 1
 
 def p_variable3(p):
@@ -105,7 +105,7 @@ def p_variable3(p):
         print(f"Word {parser.word_count}: Undefined name")
         parser.success = False
     else:
-        p[0] = f"PUSHG {parser.var[p[1]]}"
+        p[0] = f"PUSHG {parser.var[p[1]]}\n"
         parser.word_count += 1
 
 
@@ -155,7 +155,7 @@ def p_factWord(p):
             print(f"Word {parser.word_count}: Unterminated string")
         else:
             print(f"Word {parser.word_count}: Undefined name")
-            
+
 
 def p_factComment(p):
     "fact : COMMENT"

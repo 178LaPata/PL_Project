@@ -1,1 +1,4 @@
-CHAR
+VARIABLE arroz
+VARIABLE fds
+arroz @
+fds @
