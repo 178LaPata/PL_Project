@@ -149,9 +149,13 @@ def p_factWord(p):
     if p[1] in parser.func:
         p[0] = f"{p[1]}:\n\t{parser.func[p[1]]}\n"
     else:
-        print(f"Word {parser.word_count}: Undefined name")
-        parser.success = False
         p[0] = ""
+        parser.success = False
+        if (p[1] == "CHAR"):
+            print(f"Word {parser.word_count}: Unterminated string")
+        else:
+            print(f"Word {parser.word_count}: Undefined name")
+            
 
 def p_factComment(p):
     "fact : COMMENT"

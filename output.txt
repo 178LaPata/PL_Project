@@ -1,5 +1,0 @@
-
-START
-
-PUSHG 0
-STOP
