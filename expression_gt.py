@@ -134,7 +134,7 @@ def p_factOPR(p):
         p[0] = 'SUP\n'
     elif p[1] == '>=':
         p[0] = 'SUPEQ\n'
-    parser.stack_size -= 2
+    parser.stack_size -= 1
 
 
 

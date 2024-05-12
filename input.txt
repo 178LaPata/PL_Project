@@ -1,3 +1,6 @@
-: somatorio ( n -- sum ) 0 swap 1 do i + loop ;
+: somatorio ( n -- sum )
+0 swap 1 do
+i +
+loop ;
 
 5 somatorio .
